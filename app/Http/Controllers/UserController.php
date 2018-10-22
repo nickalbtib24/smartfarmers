@@ -84,10 +84,7 @@ class UserController extends Controller
             'genero'=> 'required', 
         ]);
     } 
-    public function defecar()
-    {
-        return 'nigga';
-    }
+    
 
     public function returnEditUserAsUserView()
     {
