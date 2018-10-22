@@ -39,3 +39,7 @@ Route::group(['middleware' => 'control'],function(){
   
   Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
   Route::get('/user/activacion/{token}','Auth\RegisterController@activateUser');
+
+  Route::get('/producto/crearProducto',function(){
+      return view('producto.NuevoProducto');
+  });
