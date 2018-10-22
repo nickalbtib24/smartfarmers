@@ -1,0 +1,159 @@
+.article-list {
+  color:#313437;
+  background-color:#fff;
+}
+
+.article-list p {
+  color:#7d8285;
+}
+
+.article-list h2 {
+  font-weight:bold;
+  margin-bottom:40px;
+  padding-top:40px;
+  color:inherit;
+}
+
+@media (max-width:767px) {
+  .article-list h2 {
+    margin-bottom:25px;
+    padding-top:25px;
+    font-size:24px;
+  }
+}
+
+.article-list .intro {
+  font-size:16px;
+  max-width:500px;
+  margin:0 auto;
+}
+
+.article-list .intro p {
+  margin-bottom:0;
+}
+
+.article-list .articles {
+  padding-bottom:40px;
+}
+
+.article-list .item {
+  padding-top:50px;
+  min-height:425px;
+  text-align:center;
+}
+
+.article-list .item .name {
+  font-weight:bold;
+  font-size:16px;
+  margin-top:20px;
+  color:inherit;
+}
+
+.article-list .item .description {
+  font-size:14px;
+  margin-top:15px;
+  margin-bottom:0;
+}
+
+.article-list .item .action {
+  font-size:24px;
+  width:24px;
+  margin:22px auto 0;
+  line-height:1;
+  display:block;
+  color:#4f86c3;
+  opacity:0.85;
+  transition:opacity 0.2s;
+  text-decoration:none;
+}
+
+.article-list .item .action:hover {
+  opacity:1;
+}
+
+label {
+  color:#000000;
+  font-family:Poppins, sans-serif;
+  font-size:35px;
+  margin-left:292px;
+  margin-top:15px;
+}
+
+@media (max-width: 576px) {
+  label {
+    font-size:31px;
+    margin-left:72px;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  #busqueda {
+    padding-left:15px;
+    margin-top:5px;
+  }
+}
+
+#money {
+  font-size:166px;
+  color:#05386b;
+}
+
+.row.articles {
+}
+
+#socios {
+  color:#05386b;
+  font-size:111px;
+}
+
+#carro-de-compras {
+  color:#05386b;
+  font-size:166px;
+}
+
+#header-registrar {
+  height:80px;
+  background-color:#5cdb95;
+}
+
+#div-registrar {
+  margin-top:76px;
+  width:1000px;
+}
+
+#registro-texto {
+  height:58px;
+  margin-top:20px;
+}
+
+#registro-clave {
+  height:58px;
+  margin-top:20px;
+}
+
+@media (max-width:1199) and (min-width: 900px) {
+  #busqueda {
+    margin-left:12px;
+  }
+}
+
+#label-register {
+  padding-top:13px;
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image:url"data:image/svg+xml";
+}
+
+#nombre-producto {
+  color:rgb(0,0,0);
+  font-size:23px;
+}
+
+#nombre-producto:hoover {
+  font-size:19px;
+  color:rgb(51,48,48);
+}
+
