@@ -24,22 +24,23 @@ Route::group(['middleware' => 'control'],function(){
     
     Route::get('/normal/home',function(){
         return view('welcome');
-    })->name('homeNormal');
-  
-  
-    
+    })->name('homeNormal');  
   });
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/admin/crearUsuario','CreateUsers@returnNewUserPage')->name('crearUsuarioAdmin');
+    Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
+    Route::get('/admin/crearProducto',function(){
+        return view('producto.NuevoProducto');
+    });
+});
+
   Route::get('/normal/perfil','UserController@returnProfileView')->name('verPerfil');
   Route::get('/normal/editarperfil','UserController@returnEditUserAsUserView')->name('editarPerfilUsuario');
   Route::post('/normal/editarperfil','UserController@editUserAsUser')->name('postEditarPerfilComoUsuario');
   Route::get('/normal/editarperfil/contrasena','UserController@returnEditPasswordAsUserView')->name('editarContrasenaComoUsuario');
   Route::post('/normal/editarperfil/contrasena','UserController@editPasswordAsUser')->name('postEditarContrasenaComoUsuario');
 
-  Route::get('/admin/crearUsuario','CreateUsers@returnNewUserPage')->name('crearUsuarioAdmin');
   
-  Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
   Route::get('/user/activacion/{token}','Auth\RegisterController@activateUser');
 
-  Route::get('/producto/crearProducto',function(){
-      return view('producto.NuevoProducto');
-  });
+  
