@@ -7,14 +7,13 @@
     <title>Smart_Farmers</title>
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type = "text/css" href="/fonts/font-awesome.min.css">
-    <link rel="stylesheet" type = "text/css" href="/fonts/ionicons.min.css">
-    <link rel="stylesheet" type = "text/css" href="/fonts/typicons.min.css">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
     <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
 
    
 </head>

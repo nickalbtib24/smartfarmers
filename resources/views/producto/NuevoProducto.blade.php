@@ -5,34 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/fonts/simple-line-icons.min.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Asset">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Berkshire+Swash|Kaushan+Script">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="{{asset('css/Animated-Pretty-Product-List.css')}}">
-    <link rel="stylesheet" href="{{asset('css/best-carousel-slide-1.css')}}">
-    <link rel="stylesheet" href="{{asset('css/best-carousel-slide.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Card-Group1-Shadow.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Contact-Form-v2-Modal--Full-with-Google-Map.css')}}">
-    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme-1.css')}}">
-    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Footer-Dark.css')}}">
-    <link rel="stylesheet" href="{{asset('css/header-1.css')}}">
-    <link rel="stylesheet" href="{{asset('css/header-2.css')}}">
-    <link rel="stylesheet" href="{{asset('css/header-3.css')}}">
-    <link rel="stylesheet" href="{{asset('css/header.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Highlight-Blue.css')}}">
-    <link rel="stylesheet" href="{{asset('css/JLX-Contact-Form-with-Placeholder-FI.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Pretty-Search-Form.css')}}">
-    <link rel="stylesheet" href="{{asset('css/MUSA_panel-table-1.css')}}">
-    <link rel="stylesheet" href="{{asset('css/MUSA_panel-table.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form.css')}}">
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
-</head><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
+    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
     <header>
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
