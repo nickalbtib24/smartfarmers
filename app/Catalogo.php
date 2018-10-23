@@ -11,4 +11,9 @@ class Catalogo extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class,'catalogos_producto');
+    }
 }

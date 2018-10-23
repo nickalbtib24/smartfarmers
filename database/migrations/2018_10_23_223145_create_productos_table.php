@@ -19,6 +19,8 @@ class CreateProductosTable extends Migration
             $table->double('precio');
             $table->longtext('descripcion');
             $table->string('imagen');
+            $table->unsignedInteger('categoria_id');
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->timestamps();
         });
     }

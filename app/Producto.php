@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
+use App\Catalogo;
+use App\Factura;
 class Producto extends Model
 {
     /**
@@ -26,5 +28,15 @@ class Producto extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class); 
+    }
+
+    public function catalogos()
+    {
+        return $this->belongsToMany(Catalogo::class,'catalogos_producto');
+    }
+
+    public function facturas()
+    {
+        return $this->belongsToMany(Factura::class,'facturas_producto');
     }
 }
