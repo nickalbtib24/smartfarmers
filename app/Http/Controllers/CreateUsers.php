@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Role;
 use App\User;
+use App\Catalogo;
 use Image;
 
 class CreateUsers extends Controller
@@ -101,9 +102,13 @@ class CreateUsers extends Controller
             'genero' => $data['genero'],
             
         ]);
-
         $user->roles()->attach($data['role']);
         $user->save();
+        $catalogo = new Catalogo;
+        $catalogo->user_name = $user->name;
+        $catalogo->user()->associate($user);
+        $catalogo->save();
+        
     }
 
     

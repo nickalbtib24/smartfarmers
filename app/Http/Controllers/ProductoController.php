@@ -125,6 +125,7 @@ class ProductoController extends Controller
             'imagen' => $filename,
         ]);
         $categoria = Categoria::find((int)$data['categoria']);
+        $usuario = User::find((int)$data['proveedor']);
         $producto->categoria()->associate($categoria);
         $producto->save();
     }
