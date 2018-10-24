@@ -26,13 +26,12 @@ Route::group(['middleware' => 'control'],function(){
         return view('welcome');
     })->name('homeNormal');  
   });
-Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin/crearUsuario','CreateUsers@returnNewUserPage')->name('crearUsuarioAdmin');
-    Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
-    Route::get('/admin/crearProducto',function(){
-        return view('producto.NuevoProducto');
-    });
-});
+
+  Route::get('/admin/crearUsuario','CreateUsers@returnNewUserPage')->name('crearUsuarioAdmin');
+  Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
+  Route::get('/admin/crearProducto','ProductoController@returnCreateProductViewAsAdmin')->name('crearProductoAdmin');
+  Route::post('/admin/crearProducto','ProductoController@createProductAsAdmin')->name('postCrearProductoAdmin');
+
 
   Route::get('/normal/perfil','UserController@returnProfileView')->name('verPerfil');
   Route::get('/normal/editarperfil','UserController@returnEditUserAsUserView')->name('editarPerfilUsuario');

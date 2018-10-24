@@ -14,20 +14,20 @@ class Producto extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'precio', 'descripcion','imagen',
+        'nombre','precio','descripcion','imagen',
     ];
      /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'precio',
+    protected $guarded = [
+        'id','categoria_id',
     ];
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class); 
+        return $this->belongsTo(Categoria::class,'categoria_id'); 
     }
 
     public function catalogos()
