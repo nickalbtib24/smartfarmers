@@ -85,11 +85,7 @@ class ProductoController extends Controller
         $categorias = Categoria::orderBy('nombre')->pluck('nombre','id');
         foreach($users as $user)
         {
-            if($user->)
-            {
-
-            }
-            $proveedores[] = 
+           
         }
         return view('administrador/producto/NuevoProducto')
         ->with(compact('proveedores'))
