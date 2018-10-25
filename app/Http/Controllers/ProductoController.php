@@ -81,8 +81,16 @@ class ProductoController extends Controller
 
     public function returnCreateProductViewAsAdmin()
     {
-        $proveedores = User::orderBy('name')->pluck('name','id');
+        $users = User::orderBy('name')->pluck('name','id');
         $categorias = Categoria::orderBy('nombre')->pluck('nombre','id');
+        foreach($users as $user)
+        {
+            if($user->)
+            {
+
+            }
+            $proveedores[] = 
+        }
         return view('administrador/producto/NuevoProducto')
         ->with(compact('proveedores'))
         ->with(compact('categorias'));
@@ -118,16 +126,27 @@ class ProductoController extends Controller
      */
     public function create(array $data, $filename)
     {
+        /**Se crea el nuevo producto*/
         $producto=Producto::create([
             'nombre' => $data['name'],
             'precio' => $data['precio'],
             'descripcion' => $data['descripcion'],
             'imagen' => $filename,
         ]);
+        /**Se busca la categoría ingresada por el usuario*/
         $categoria = Categoria::find((int)$data['categoria']);
+        /**Se busca el usuario ingresado como proveedor por el usuario */
         $usuario = User::find((int)$data['proveedor']);
+        /**Se obtiene el catalogo del usuario obtenido anteriormente*/
+        $catalogo = $usuario->catalogo;
+        /**Se agrega una categoria al producto*/
         $producto->categoria()->associate($categoria);
+        /**Se guarda el producto en la base de datos*/
         $producto->save();
+        /**Se agrega al catalogo de usuarios el nuevo producto*/
+        $catalogo->productos()->attach($producto);
+        /**Se guarda el catalago en la base de datos*/
+        $catalogo->save();
     }
     public function validatorAdmin(array $data)
     {
