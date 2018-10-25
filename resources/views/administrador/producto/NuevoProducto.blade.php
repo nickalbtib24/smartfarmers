@@ -21,7 +21,7 @@
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
                 <span>
-                    <img class="hoja" src="/img/foto.png" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
+                    <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
                 </span>
                 <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -150,15 +150,15 @@
             </div>
         </form>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/Contact-Form-v2-Modal--Full-with-Google-Map.js"></script>
-    <script src="assets/js/dh-agency-bootstrap-theme-1.js"></script>
-    <script src="assets/js/dh-agency-bootstrap-theme.js"></script>
-    <script src="assets/js/Profile-Edit-Form.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-animation.js"></script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
+    <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
+    <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
+    <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/bs-animation.js')}}"></script>
 </body>
 
 </html>

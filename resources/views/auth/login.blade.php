@@ -23,7 +23,7 @@
 
 <body style="width:100%;height:100%;">
     <div style="height:80px;color:#5cdb95;background-color:#4b4c4d;">
-        <div id="label-register"><span><img src="/img/foto.png" style="height:40px;width:40px;margin-left:30px;margin-right:-23px;"></span><a href="{{url('/')}}" id="logo" style="margin-left:35px;">SMART FARMERS</a></div>
+        <div id="label-register"><span><img src="{{asset('img/foto.png')}}" style="height:40px;width:40px;margin-left:30px;margin-right:-23px;"></span><a href="{{url('/')}}" id="logo" style="margin-left:35px;">SMART FARMERS</a></div>
     </div>
     <div class="login-clean" style="background-color:rgb(205,209,213);">
         <form method="POST" action="{{ route('login') }}">

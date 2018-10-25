@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
@@ -24,7 +24,7 @@
             <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
                     <div class="container">
                         <span>
-                            <img class="hoja" src="/img/foto.png" style="height:40px;width:40px;margin-left:-60px;margin-right:20px;">
+                            <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px;margin-left:-60px;margin-right:20px;">
                         </span>
                         <a class="navbar-brand" href="#" id="logo">SMART FARMERS</a>
                         <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>

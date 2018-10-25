@@ -144,14 +144,14 @@
             </div>
         </footer>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-animation-1.js"></script>
-    <script src="assets/js/bs-animation.js"></script>
-    <script src="assets/js/Contact-Form-v2-Modal--Full-with-Google-Map.js"></script>
-    <script src="assets/js/dh-agency-bootstrap-theme-1.js"></script>
-    <script src="assets/js/dh-agency-bootstrap-theme.js"></script>
-    <script src="assets/js/Profile-Edit-Form.js"></script>
+    <script src="{{source('js/jquery.min.js')}}"></script>
+    <script src="{{source('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{source('js/bs-animation-1.js')}}"></script>
+    <script src="{{source('js/bs-animation.js')}}"></script>
+    <script src="{{source('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
+    <script src="{{source('js/dh-agency-bootstrap-theme-1.js')}}"></script>
+    <script src="{{source('js/dh-agency-bootstrap-theme.js')}}"></script>
+    <script src="{{source('js/Profile-Edit-Form.js')}}"></script>
 </body>
 
 </html>
