@@ -76,13 +76,14 @@
    
    
     <div class="container profile profile-view" id="profile">
-        <div class="row">
-            <div class="col-md-12 alert-col relative">
-                <div class="alert alert-info absolue center" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><span>Profile save with success</span></div>
-            </div>
-        </div>
+       
         <form  enctype="multipart/form-data" method="POST" action="{{route('postCrearProductoAdmin')}}">
             @csrf
+            @if(session()->has('success'))
+                <div class="alert alert-success">
+                     {{ session()->get('message') }}
+                </div>
+            @endif
             <div class="form-row profile-row">
                 <div class="col-md-8">
                     <h1>Agregar Producto</h1>
@@ -150,14 +151,13 @@
             </div>
         </form>
     </div>
+    
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
     <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
-    <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bs-animation.js')}}"></script>
 </body>
 

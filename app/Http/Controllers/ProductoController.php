@@ -81,12 +81,8 @@ class ProductoController extends Controller
 
     public function returnCreateProductViewAsAdmin()
     {
-        $users = User::orderBy('name')->pluck('name','id');
+        $proveedores = User::orderBy('name')->pluck('name','id');
         $categorias = Categoria::orderBy('nombre')->pluck('nombre','id');
-        foreach($users as $user)
-        {
-           
-        }
         return view('administrador/producto/NuevoProducto')
         ->with(compact('proveedores'))
         ->with(compact('categorias'));
@@ -112,7 +108,7 @@ class ProductoController extends Controller
         {
             return redirect()->back()->with('errors',$validator->errors('errors'));
         }
-        return view('welcome');
+        return redirect()->back()->with('success', '¡Producto Ingresado Exitosamente!');
 
     }
     /**

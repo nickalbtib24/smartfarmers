@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Role;
+use App\Catalogo;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -90,6 +91,10 @@ class RegisterController extends Controller
         }
         $user->roles()->attach($role);
         $user->save();
+        $catalogo = new Catalogo;
+        $catalogo->user_name = $user->name;
+        $catalogo->user()->associate($user);
+        $catalogo->save();
         return $user;
       
     }

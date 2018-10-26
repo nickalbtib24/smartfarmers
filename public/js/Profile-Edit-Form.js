@@ -41,13 +41,7 @@
         var inst = this;
         var formData = new FormData($(this)[0]);
 
-        $(inst).find("button[type = submit]").addClass("loading").prop("disabled", true);
-        toggleAlert("alert-success", true);
         
-        setTimeout(function(){
-            $(inst).find("button[type = submit]").removeClass("loading").prop("disabled", false);
-            toggleAlert("alert-success");
-        },1000);
         
         return false;
     });
