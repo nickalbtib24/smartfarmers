@@ -106,92 +106,35 @@
                                     <th><em class="fa fa-cog"></em></th>
                                     <th class="hidden-xs">ID</th>
                                     <th>Producto</th>
-                                    <th>Tipo_Producto</th>
-                                    <th>Id_proveedor</th>
+                                    <th>Categoria</th>
+                                    <th>Proveedor</th>
                                     <th>Precio</th>
-                                    <th>Foto</th>
+                                    <th>Imagen</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                    <td>Humus Solido</td>
-                                    <td>Fertilizante</td>
-                                    <td>$100000</td>
-                                    <td>2</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                    <td>Diatomeas</td>
-                                    <td>Tierra</td>
-                                     <td>$35000</td>
-                                    <td>8</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                   <td>Diatomeas</td>
-                                    <td>Tierra</td>
-                                     <td>$50000</td>
-                                    <td>8</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td><td>Orquídeas</td>
-                                    <td>Fertilizantes</td>
-                                     <td>$21000</td>
-                                    <td>2</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                    <td>Lombriz roja</td>
-                                    <td>animal</td>
-                                    <td>$9000</td>
-                                    <td>2</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                    <td>Semilla Morena</td>
-                                    <td>Semilla</td>
-                                    <td>3</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a><a class="btn btn-danger"><em class="fa fa-trash"></em></a></td>
-                                    <td class="hidden-xs">1</td>
-                                    <td>Tierra negra</td>
-                                    <td>tierr</td>
-                                    <td>3</td>
-                                    <td></td>
-                                </tr>
+                                <form method="GET">
+                                @foreach ($productos as $producto)
+                                    <tr>
+                                        <td align="center">
+                                            <a class="btn btn-default" href="{{route('editarProductosAdmin',$producto->id)}}"><em class="fa fa-pencil"></em></a>
+                                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                        </td>
+                                        <td class="hidden-xs">{{$producto->id}}</td>
+                                        <td>{{$producto->nombre}}</td>
+                                        <td>{{$producto->categoria->nombre}}</td>
+                                        <td>{{$producto->catalogos()->first()->user->name}}</td>
+                                        <td>${{$producto->precio}} COP</td>
+                                        <td><img class="hoja" src="{{$producto->imagen}}" style="height:40px;width:40px;"></td>
+                                        
+                                    </tr>
+                                @endforeach  
+                                </form> 
                             </tbody>
                         </table>
+                        {{ $productos->links() }}
                     </div>
-                    <div class="row">
-                        <div class="col col-xs-4">Page 1 of 5</div>
-                        <div class="col col-xs-8">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#">«</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -88,6 +88,18 @@ class ProductoController extends Controller
         ->with(compact('categorias'));
     }
 
+    public function returnViewProductsAsAdmin()
+    {
+        $productos = Producto::paginate('15');
+        return view('administrador.producto.VerProductos',compact('productos'));
+    }
+
+    public function returnEditProductsAsAdmin($id)
+    {
+        $producto = Producto::find($id);
+        return view('administrador.producto.EditarProducto',compact($producto));
+    }
+
     public function createProductAsAdmin(Request $request)
     {
         $validator = $this->validatorAdmin($request->all());
@@ -110,6 +122,16 @@ class ProductoController extends Controller
         }
         return redirect()->back()->with('success', '¡Producto Ingresado Exitosamente!');
 
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function editProductAsAdmin($id)
+    {
+        //
     }
     /**
      * Show the form for creating a new resource.

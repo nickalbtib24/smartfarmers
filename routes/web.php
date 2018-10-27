@@ -31,9 +31,8 @@ Route::group(['middleware' => 'control'],function(){
   Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
   Route::get('/admin/crearProducto','ProductoController@returnCreateProductViewAsAdmin')->name('crearProductoAdmin');
   Route::post('/admin/crearProducto','ProductoController@createProductAsAdmin')->name('postCrearProductoAdmin');
-  Route::get('/admin/verProductos',function(){
-      return view('administrador.producto.VerProductos');
-  });
+  Route::get('/admin/verProductos','ProductoController@returnViewProductsAsAdmin')->name('verProductosAdmin');
+  Route::get('/admin/editarProducto{id}','ProductoController@returnEditProductsAsAdmin')->name('editarProductosAdmin');
 
 
   Route::get('/normal/perfil','UserController@returnProfileView')->name('verPerfil');
