@@ -77,7 +77,7 @@
    
     <div class="container profile profile-view" id="profile">
        
-        <form  enctype="multipart/form-data" method="POST" action="{{route('postCrearProductoAdmin')}}">
+        <form  enctype="multipart/form-data" method="POST" action="{{route('postEditarProductoAdmin',$producto->id)}}">
             @csrf
             @if(session()->has('success'))
                 <div class="alert alert-success">
@@ -86,21 +86,20 @@
             @endif
             <div class="form-row profile-row">
                 <div class="col-md-8">
-                    <h1>Agregar Producto</h1>
+                    <h1>Editar Producto</h1>
                     <hr>
+                    
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <label>Producto</label><input class="form-control" type="text" name="name">
+                                <label>Producto</label><input class="form-control" type="text" value="{{$producto->nombre}}" name="name">
                             </div>
                             <div class="form-group">
                                 <label>Proveedor</label>
-                                <select style="height: 40px; margin-top:0px;" name="proveedor" type="text" class="form-control{{ $errors->has('proveedor') ? ' is-invalid' : '' }}" value="{{ old('proveedor') }}" required autofocus>
-                                    <option value="">{{'Seleccione el proveedor'}}</option>
-                                    @foreach ($proveedores as $id => $proveedor)
-                                        <option value="{{$id}}">{{$proveedor}}</option>
-                                    @endforeach
-                                </select>
+                                <select style="height: 40px; margin-top:0px;" name="proveedor" type="text" class="form-control{{ $errors->has('proveedor') ? ' is-invalid' : '' }}" value="{{ old('proveedor') }}" readonly>
+                                    <option value="">{{$producto->catalogos->first()->user_name}}</option>
+
+                                </select>   
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
@@ -109,13 +108,18 @@
                                 <select style="height: 40px; margin-top:0px;" name="categoria" type="text" class="form-control{{ $errors->has('categoria') ? ' is-invalid' : '' }}" value="{{ old('categoria') }}" required autofocus>
                                     <option value="">{{'Seleccione la categoria'}}</option>
                                     @foreach ($categorias as $id => $categoria)
-                                        <option value="{{$id}}">{{$categoria}}</option>
+                                        @if ($producto->categoria->nombre === $categoria)
+                                            <option value="{{$id}}" selected>{{$categoria}}</option>
+                                        @else
+                                            <option value="{{$id}}">{{$categoria}}</option>
+                                        @endif
                                     @endforeach
+                                    
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Precio producto</label>
-                                <input class="form-control" type="text" name="precio">
+                                <input class="form-control" type="text" name="precio" value="{{$producto->precio}}">
                                 @if ($errors->has('precio'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('precio') }}</strong>
@@ -126,7 +130,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>Descripción del producto</label>
-                                <textarea type="text Area" class="form-control" id="mio" name="descripcion">
+                                <textarea type="text Area" class="form-control" id="mio" name="descripcion" >
+                                        {{$producto->descripcion}}
                                 </textarea>
                                 @if ($errors->has('descripcion'))
                                     <span class="invalid-feedback" role="alert">
@@ -140,11 +145,11 @@
                     <div class="form-row">
                         <div class="col-md-12 content-right">
                             <button class="btn btn-primary form-btn" type="submit">SAVE </button>
-                            <button class="btn btn-danger form-btn" type="reset">CANCEL </button>
+                            <button class="btn btn-danger form-btn"  href="{{route('verProductosAdmin')}}">CANCEL </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xl-4 relative">
+                <div class="col-md-4 col-xl-4 relative" style="margin-top:50px">
                     <div class="avatar"></div>
                     <div class="avatar-bg center"></div><input type="file" class="form-control" name="avatar-file">
                 </div>
@@ -154,7 +159,6 @@
     
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
     <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>

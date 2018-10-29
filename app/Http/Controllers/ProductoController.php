@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Producto;
 use App\Categoria;
+use App\Catalogo;
 use App\User;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Collection;
+use DB;
 class ProductoController extends Controller
 {
     /**
@@ -45,16 +47,7 @@ class ProductoController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Producto  $producto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Producto $producto)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
@@ -83,7 +76,7 @@ class ProductoController extends Controller
     {
         $proveedores = User::orderBy('name')->pluck('name','id');
         $categorias = Categoria::orderBy('nombre')->pluck('nombre','id');
-        return view('administrador/producto/NuevoProducto')
+        return view('administrador.producto.NuevoProducto')
         ->with(compact('proveedores'))
         ->with(compact('categorias'));
     }
@@ -97,7 +90,10 @@ class ProductoController extends Controller
     public function returnEditProductsAsAdmin($id)
     {
         $producto = Producto::find($id);
-        return view('administrador.producto.EditarProducto',compact($producto));
+        $categorias = Categoria::orderBy('nombre')->pluck('nombre','id');
+        return view('administrador.producto.EditarProducto')
+        ->with(compact('producto'))
+        ->with(compact('categorias'));
     }
 
     public function createProductAsAdmin(Request $request)
@@ -129,9 +125,50 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function editProductAsAdmin($id)
+    public function editProductAsAdmin(Request $request,$id)
     {
-        //
+        $validator = $this->validateEditAdmin($request->all());
+        if($validator->passes())
+        {
+            if($request->hasFile('avatar-file'))
+            {
+                $avatar = $request->file('avatar-file');
+                $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                Image::make($avatar)->resize(300,300)->save(public_path('/img/products/'.$filename));
+                $this->edit($request->all(),'/img/products/'.$filename,$id);
+            }else
+            {
+                $producto = Producto::find($id);
+                $this->edit($request->all(),$producto->imagen,$id);
+            }
+        }else
+        {
+            return redirect()->back()->with('errors',$validator->errors('errors'));
+        }
+        $productos = Producto::paginate('15');
+        return view('administrador.producto.VerProductos')
+        ->with(compact('productos'))
+        ->with('success','Se ha editado el producto exitosamente');
+
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(array $data,$filename,$id)
+    {
+        $producto = Producto::find($id);
+        $producto->nombre = $data['name'];
+        $producto->precio = $data['precio'];
+        $producto->descripcion = $data['descripcion'];
+        $producto->imagen = $filename;
+        
+        $categoria = Categoria::find((int)$data['categoria']);
+        $producto->categoria()->associate($categoria);
+        $producto->save();
+
     }
     /**
      * Show the form for creating a new resource.
@@ -161,6 +198,36 @@ class ProductoController extends Controller
         $catalogo->productos()->attach($producto);
         /**Se guarda el catalago en la base de datos*/
         $catalogo->save();
+    }
+
+    public function searchProductsAdmin(Request $request)
+    {
+        $busqueda = $request->input('search');
+        $producto = Producto::find($busqueda);
+        if($producto)
+        {
+            $productos=Producto::where('id','=',$busqueda)->get();
+            return view('administrador.producto.VerProductos',compact('productos'));
+        }else
+        {
+            $categoria = Categoria::where('nombre',$busqueda)->get();
+            $usuario = Catalogo::where('user_name',$busqueda)->get();
+
+            $productos=Producto::where('nombre','like','%'.$busqueda.'%')
+            ->orwhere('precio','like','%'.$busqueda.'%')
+            ->orwhere('id_categoria','=',$categoria->id)
+            ->get();
+            return $categoria;
+        }
+    }
+    public function validateEditAdmin(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'categoria' => 'required',
+            'precio' => 'required|integer',
+            'descripcion' => 'required',
+        ]);
     }
     public function validatorAdmin(array $data)
     {

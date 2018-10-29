@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('fonts/ionicons.min.css')}}">
@@ -92,15 +93,18 @@
                     </div>
                     <p></p>
                     <p></p>
-                    <div class="input-group">
-                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" type="text" placeholder="Nombre Producto">
-                        <div class="input-group-append"><button class="btn btn-light" type="button">Buscar</button></div>
-                    </div>
+                    <form method="POST" action="{{ route('buscarProductosAdmin') }}">
+                        <div class="input-group">
+                            @csrf
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Nombre Producto">
+                            <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
+                        </div>
+                    </form>
                     <p></p>
                     <p></p>
                     <div class="panel-body">
                         
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<table class="table table-striped table-bordered table-list">
+                        <table class="table table-striped table-bordered table-list">
                             <thead>
                                 <tr>
                                     <th><em class="fa fa-cog"></em></th>
@@ -120,7 +124,7 @@
                                             <a class="btn btn-default" href="{{route('editarProductosAdmin',$producto->id)}}"><em class="fa fa-pencil"></em></a>
                                             <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
                                         </td>
-                                        <td class="hidden-xs">{{$producto->id}}</td>
+                                        <td>{{$producto->id}}</td>
                                         <td>{{$producto->nombre}}</td>
                                         <td>{{$producto->categoria->nombre}}</td>
                                         <td>{{$producto->catalogos()->first()->user->name}}</td>
@@ -132,7 +136,7 @@
                                 </form> 
                             </tbody>
                         </table>
-                        {{ $productos->links() }}
+                        
                     </div>
                     
                 </div>
@@ -152,6 +156,33 @@
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bs-animation.js')}}"></script>
+   
+    
 </body>
 
 </html>
+<script>
+        $(document).ready(function(){
+
+        fetch_customer_data();
+
+        function fetch_customer_data(query = '')
+        {
+            $.ajax({
+                url:"{{ route('buscarProductosAdmin') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(data)
+                {
+                    $('tbody').html(data.table_data);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            fetch_customer_data(query);
+            });
+        });
+</script>

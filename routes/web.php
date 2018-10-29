@@ -32,9 +32,9 @@ Route::group(['middleware' => 'control'],function(){
   Route::get('/admin/crearProducto','ProductoController@returnCreateProductViewAsAdmin')->name('crearProductoAdmin');
   Route::post('/admin/crearProducto','ProductoController@createProductAsAdmin')->name('postCrearProductoAdmin');
   Route::get('/admin/verProductos','ProductoController@returnViewProductsAsAdmin')->name('verProductosAdmin');
+  Route::post('/admin/verProductos','ProductoController@searchProductsAdmin')->name('buscarProductosAdmin');
   Route::get('/admin/editarProducto{id}','ProductoController@returnEditProductsAsAdmin')->name('editarProductosAdmin');
-
-
+  Route::post('/admin/editarProducto{id}','ProductoController@editProductAsAdmin')->name('postEditarProductoAdmin');
   Route::get('/normal/perfil','UserController@returnProfileView')->name('verPerfil');
   Route::get('/normal/editarperfil','UserController@returnEditUserAsUserView')->name('editarPerfilUsuario');
   Route::post('/normal/editarperfil','UserController@editUserAsUser')->name('postEditarPerfilComoUsuario');
