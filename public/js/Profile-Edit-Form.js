@@ -5,7 +5,7 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('.avatar-bg').css({
+                $('.avatar').css({
                     'background':'url('+e.target.result+')',
                     'background-size':'cover',
                     'background-position': '50% 50%'

@@ -93,16 +93,16 @@
                     @endif
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
-                                <label style="font-size: 20px !important; margin-left:0px">Nombre</label>
-                                <input class="form-control" type="text" name="name">                    
+                            <label style="font-size: 20px !important; margin-left:0px">Nombre</label>
+                            <input class="form-control" type="text" name="name">                    
                         </div>
                         <div class="col-sm-12 col-md-6">
-                                    <label style="font-size: 20px !important; margin-left:0px">Genero</label>
-                                    <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="genero" value="{{ old('role') }}" required autofocus>
-                                        <option value="">{{'Seleccione el Genero'}}</option>
-                                        <option value="Femenino">{{'Femenino'}}</option>
-                                        <option value="Masculino">{{'Masculino'}}</option>        
-                                    </select>
+                            <label style="font-size: 20px !important; margin-left:0px">Genero</label>
+                            <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="genero" value="{{ old('role') }}" required autofocus>
+                                <option value="">{{'Seleccione el Genero'}}</option>
+                                <option value="Femenino">{{'Femenino'}}</option>
+                                <option value="Masculino">{{'Masculino'}}</option>        
+                            </select>
                         </div>
                     </div>
                     

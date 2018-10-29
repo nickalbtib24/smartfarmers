@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('fonts/ionicons.min.css')}}">
@@ -88,7 +88,10 @@
                     <div class="Usuarios">
                         <div class="row">
                             <div class="col col-xs-6"></div>
-                            <div class="col col-xs-6 text-right"><button type="button" class="btn btn-sm btn-primary btn-create">Nuevo Usuario</button></div>
+                            <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
+                                <a href="{{route('crearProductoAdmin')}}" style="background-color: #f4a50b; border:#f4a50b " class="btn btn-sm btn-primary btn-create">Nuevo Producto</a>
+                                <button type="button" id="cat" style="background-color: #f4a50b; border:#f4a50b " class="btn btn-sm btn-primary btn-create">Nueva Categoria</button>
+                            </div>
                         </div>
                     </div>
                     <p></p>
@@ -96,7 +99,7 @@
                     <form method="POST" action="{{ route('buscarProductosAdmin') }}">
                         <div class="input-group">
                             @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Nombre Producto">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por nombre del producto, categoría, proveedor y precio">
                             <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
                         </div>
                     </form>
@@ -144,9 +147,6 @@
         </div>
     </div>
 </div>
-  
-    <div class="footer-2"></div>
-    <div class="footer-2"></div>
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
@@ -154,35 +154,10 @@
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
     <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/bs-animation.js')}}"></script>
    
     
 </body>
 
 </html>
-<script>
-        $(document).ready(function(){
-
-        fetch_customer_data();
-
-        function fetch_customer_data(query = '')
-        {
-            $.ajax({
-                url:"{{ route('buscarProductosAdmin') }}",
-                method:'GET',
-                data:{query:query},
-                dataType:'json',
-                success:function(data)
-                {
-                    $('tbody').html(data.table_data);
-                }
-            })
-        }
-
-        $(document).on('keyup', '#search', function(){
-            var query = $(this).val();
-            fetch_customer_data(query);
-            });
-        });
-</script>

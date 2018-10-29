@@ -204,20 +204,29 @@ class ProductoController extends Controller
     {
         $busqueda = $request->input('search');
         $producto = Producto::find($busqueda);
+        $categoria = Categoria::where('nombre','like','%'.$busqueda.'%')->get()->first();
+        $proveedor = Catalogo::where('user_name','like','%'.$busqueda.'%')->get()->first();
+        
         if($producto)
         {
             $productos=Producto::where('id','=',$busqueda)->get();
             return view('administrador.producto.VerProductos',compact('productos'));
-        }else
+        }elseif($categoria != null)
         {
-            $categoria = Categoria::where('nombre',$busqueda)->get();
-            $usuario = Catalogo::where('user_name',$busqueda)->get();
-
+            $productos=Producto::where('categoria_id','=',$categoria->id)->get();
+            return view('administrador.producto.VerProductos',compact('productos'));
+        }
+        elseif($proveedor != null)
+        {
+            $productos = $proveedor->productos;
+            return view('administrador.producto.VerProductos',compact('productos'));
+        }
+        else
+        {
             $productos=Producto::where('nombre','like','%'.$busqueda.'%')
             ->orwhere('precio','like','%'.$busqueda.'%')
-            ->orwhere('id_categoria','=',$categoria->id)
             ->get();
-            return $categoria;
+            return view('administrador.producto.VerProductos',compact('productos'));
         }
     }
     public function validateEditAdmin(array $data)

@@ -17,6 +17,8 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
+<body>
+    <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <header>
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
@@ -71,98 +73,96 @@
                 </div>
             </div>
         </nav>
-    </header>
-<p></p><p></p>
-   
-   
-    <div class="container profile profile-view" id="profile">
-       
+    </header>       
         <form  enctype="multipart/form-data" method="POST" action="{{route('postEditarProductoAdmin',$producto->id)}}">
             @csrf
-            @if(session()->has('success'))
-                <div class="alert alert-success">
-                     {{ session()->get('message') }}
+            <div class="form-row profile-row" style="margin-left: 60px;">
+                <div class="col-md-4 relative" style="margin-left:-50px; margin-right:15px; margin-top:40px;">
+                    <div class="avatar">
+                        <div class="avatar center">
+                            <img style="width:200px; height: 200px; top:20px; left: 20px; border-radius: 50%;" src="{{$producto->imagen}}">
+                        </div>
+                    </div>
+                    <input type="file" class="form-control" name="avatar-file">
                 </div>
-            @endif
-            <div class="form-row profile-row">
                 <div class="col-md-8">
                     <h1>Editar Producto</h1>
                     <hr>
-                    
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
-                            <div class="form-group">
-                                <label>Producto</label><input class="form-control" type="text" value="{{$producto->nombre}}" name="name">
-                            </div>
-                            <div class="form-group">
-                                <label>Proveedor</label>
-                                <select style="height: 40px; margin-top:0px;" name="proveedor" type="text" class="form-control{{ $errors->has('proveedor') ? ' is-invalid' : '' }}" value="{{ old('proveedor') }}" readonly>
-                                    <option value="">{{$producto->catalogos->first()->user_name}}</option>
-
-                                </select>   
-                            </div>
+                            <label style="font-size: 20px !important; margin-left:0px">Producto</label>
+                            <input class="form-control" type="text" value="{{$producto->nombre}}" name="name">
+                        </div>
+                        <div class="col-sm-12 col-md-6">   
+                            <label style="font-size: 20px !important; margin-left:0px">Proveedor</label>
+                            <select style="height: 37,5px; margin-top:0px;" name="proveedor" type="text" class="form-control{{ $errors->has('proveedor') ? ' is-invalid' : '' }}" value="{{ old('proveedor') }}" readonly>
+                                <option value="">{{$producto->catalogos->first()->user_name}}</option>
+                            </select>   
+                        </div>
+                    </div>
+                    <div class="form-row">    
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Tipo de producto</label>
+                            <select style="height: 37,5px; margin-top:0px;" name="categoria" type="text" class="form-control{{ $errors->has('categoria') ? ' is-invalid' : '' }}" value="{{ old('categoria') }}" required autofocus>
+                                <option value="">{{'Seleccione la categoria'}}</option>
+                                @foreach ($categorias as $id => $categoria)
+                                    @if ($producto->categoria->nombre === $categoria)
+                                        <option value="{{$id}}" selected>{{$categoria}}</option>
+                                    @else
+                                        <option value="{{$id}}">{{$categoria}}</option>
+                                    @endif
+                                @endforeach  
+                            </select>
                         </div>
                         <div class="col-sm-12 col-md-6">
-                            <div class="form-group">
-                                <label>Tipo de producto</label>
-                                <select style="height: 40px; margin-top:0px;" name="categoria" type="text" class="form-control{{ $errors->has('categoria') ? ' is-invalid' : '' }}" value="{{ old('categoria') }}" required autofocus>
-                                    <option value="">{{'Seleccione la categoria'}}</option>
-                                    @foreach ($categorias as $id => $categoria)
-                                        @if ($producto->categoria->nombre === $categoria)
-                                            <option value="{{$id}}" selected>{{$categoria}}</option>
-                                        @else
-                                            <option value="{{$id}}">{{$categoria}}</option>
-                                        @endif
-                                    @endforeach
-                                    
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Precio producto</label>
-                                <input class="form-control" type="text" name="precio" value="{{$producto->precio}}">
-                                @if ($errors->has('precio'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('precio') }}</strong>
-                                    </span>
-                                @endif   
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label>Descripción del producto</label>
-                                <textarea type="text Area" class="form-control" id="mio" name="descripcion" >
-                                        {{$producto->descripcion}}
-                                </textarea>
-                                @if ($errors->has('descripcion'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('descripcion') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            <label style="font-size: 20px !important; margin-left:0px">Precio producto</label>
+                            <input class="form-control" type="text" name="precio" value="{{$producto->precio}}">
+                            @if ($errors->has('precio'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('precio') }}</strong>
+                                </span>
+                            @endif   
+                        </div>  
+                    </div>
+                    <div class="form-row"> 
+                        <div class="col-sm-12 col-md-12">
+                            <label>Descripción del producto</label>
+                            <textarea type="text Area" class="form-control" id="mio" name="descripcion" >
+                                    {{$producto->descripcion}}
+                            </textarea>
+                            @if ($errors->has('descripcion'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('descripcion') }}</strong>
+                                </span>
+                            @endif   
                         </div>
                     </div>
                     <hr>
                     <div class="form-row">
                         <div class="col-md-12 content-right">
-                            <button class="btn btn-primary form-btn" type="submit">SAVE </button>
-                            <button class="btn btn-danger form-btn"  href="{{route('verProductosAdmin')}}">CANCEL </button>
+                            <button class="btn btn-primary form-btn" type="submit">GUARDAR</button>
+                            <a class="btn btn-danger form-btn" href="{{route('verProductosAdmin')}}">CANCELAR</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xl-4 relative" style="margin-top:50px">
-                    <div class="avatar"></div>
-                    <div class="avatar-bg center"></div><input type="file" class="form-control" name="avatar-file">
-                </div>
             </div>
         </form>
-    </div>
     
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
-    <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
-    <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
-    <script src="{{asset('js/bs-animation.js')}}"></script>
+    
+        <script src="{{asset('js/jquery.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
+        <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
+        <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
+        <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
+        <script src="{{asset('js/jquery.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/bs-animation.js')}}"></script>
 </body>
 
 </html>
