@@ -27,14 +27,46 @@ Route::group(['middleware' => 'control'],function(){
     })->name('homeNormal');  
   });
 
-  Route::get('/admin/crearUsuario','CreateUsers@returnNewUserPage')->name('crearUsuarioAdmin');
-  Route::post('/admin/crearUsuario','CreateUsers@newUser')->name('postCrearUsuario');
-  Route::get('/admin/crearProducto','ProductoController@returnCreateProductViewAsAdmin')->name('crearProductoAdmin');
-  Route::post('/admin/crearProducto','ProductoController@createProductAsAdmin')->name('postCrearProductoAdmin');
-  Route::get('/admin/verProductos','ProductoController@returnViewProductsAsAdmin')->name('verProductosAdmin');
-  Route::post('/admin/verProductos','ProductoController@searchProductsAdmin')->name('buscarProductosAdmin');
-  Route::get('/admin/editarProducto{id}','ProductoController@returnEditProductsAsAdmin')->name('editarProductosAdmin');
-  Route::post('/admin/editarProducto{id}','ProductoController@editProductAsAdmin')->name('postEditarProductoAdmin');
+  Route::group(['middleware' => 'roles'],function(){
+  Route::get('/admin/crearUsuario',[ 
+      'uses' => 'CreateUsers@returnNewUserPage',
+      'roles' => ['Administrator']])->name('crearUsuarioAdmin');
+
+  Route::post('/admin/crearUsuario',[ 
+      'uses' => 'CreateUsers@newUser',
+      'roles' => ['Administrator']])->name('postCrearUsuario');
+
+  Route::get('/admin/crearProducto',[
+       'uses' => 'ProductoController@returnCreateProductViewAsAdmin',
+      'roles' => ['Administrator']])->name('crearProductoAdmin');
+
+  Route::post('/admin/crearProducto',[
+       'uses' => 'ProductoController@createProductAsAdmin',
+      'roles' => ['Administrator']])->name('postCrearProductoAdmin');
+
+  Route::get('/admin/verProductos',[ 
+      'uses' => 'ProductoController@returnViewProductsAsAdmin',
+      'roles' => ['Administrator']])->name('verProductosAdmin');
+
+  Route::post('/admin/verProductos',[
+       'uses' => 'ProductoController@searchProductsAdmin',
+      'roles' => ['Administrator']])->name('buscarProductosAdmin');
+
+  Route::get('/admin/editarProducto{id}',[
+       'uses' => 'ProductoController@returnEditProductsAsAdmin',
+      'roles' => ['Administrator']])->name('editarProductosAdmin');
+
+  Route::post('/admin/editarProducto{id}',[
+       'uses' => 'ProductoController@editProductAsAdmin',
+      'roles' => ['Administrator']])->name('postEditarProductoAdmin');
+
+  Route::post('/admin/eliminarProducto{id}',[
+       'uses' => 'ProductoController@destroyProductAsAdmin',
+      'roles' => ['Administrator']])->name('postEliminarProductoAdmin');
+
+});
+  
+
   Route::get('/normal/perfil','UserController@returnProfileView')->name('verPerfil');
   Route::get('/normal/editarperfil','UserController@returnEditUserAsUserView')->name('editarPerfilUsuario');
   Route::post('/normal/editarperfil','UserController@editUserAsUser')->name('postEditarPerfilComoUsuario');

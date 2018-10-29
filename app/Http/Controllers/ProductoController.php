@@ -114,7 +114,7 @@ class ProductoController extends Controller
             }
         }else
         {
-            return redirect()->back()->with('errors',$validator->errors('errors'));
+            return redirect()->back()->with('errors',$validator->errors());
         }
         return redirect()->back()->with('success', '¡Producto Ingresado Exitosamente!');
 
@@ -143,13 +143,27 @@ class ProductoController extends Controller
             }
         }else
         {
-            return redirect()->back()->with('errors',$validator->errors('errors'));
+            return redirect()->back()->with('errors',$validator->errors());
         }
         $productos = Producto::paginate('15');
         return view('administrador.producto.VerProductos')
         ->with(compact('productos'))
         ->with('success','Se ha editado el producto exitosamente');
 
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyProductAsAdmin(Request $request,$id)
+    {
+        Producto::destroy($id);
+        $productos = Producto::paginate('15');
+        return redirect()->back()
+        ->with(compact('productos'))
+        ->with('success','Se ha editado el producto exitosamente');
     }
     /**
      * Show the form for editing the specified resource.

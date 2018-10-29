@@ -41,7 +41,7 @@ class CreateUsers extends Controller
             return redirect()->to('login')->with('success',"Se le ha enviado un código de activación, por favor revise su correo electrónico");
         }else
         {
-            return redirect()->back()->with('errors',$validator->errors('errors','quihubo'));
+            return redirect()->back()->with('errors',$validator->errors('errors'));
         }
     }
 

@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <label style="font-size: 20px !important; margin-left:0px">Precio producto</label>
-                            <input class="form-control" type="text" name="precio" value="{{$producto->precio}}">
+                            <input class="form-control {{ $errors->has('precio') ? ' is-invalid' : '' }}" type="text" name="precio" value="{{$producto->precio}}">
                             @if ($errors->has('precio'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('precio') }}</strong>

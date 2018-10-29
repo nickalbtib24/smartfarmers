@@ -44,4 +44,35 @@ class User extends Authenticatable
     {
         return $this->hasMany(Factura::class);
     }
+
+    public function tieneAlgunRol($roles)
+    {
+        if(is_array($roles))
+        {
+            foreach($roles as $role)
+            {
+                if($this->tieneRol($role))
+                {
+                    return true;
+                }
+            }
+        } else
+        {
+            if($this->tieneRol($roles))
+            {
+                return true;
+            }
+        }
+    }
+
+    public function tieneRol($role)
+    {
+        if($this->roles()->where('name',$role)->first())
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }

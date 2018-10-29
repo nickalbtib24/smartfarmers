@@ -5,25 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('fonts/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('fonts/ionicons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('fonts/simple-line-icons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('fonts/typicons.min.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
-    <link rel="stylesheet" href="{{asset('css/Article-List.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Footer-Clean.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Footer-Dark.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="{{asset('css/Login-Form-Clean.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Navigation-with-Search.css')}}">
-    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Clean.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Dark.css')}}">
+    <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
 </head>
 
-<body><div>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <header>
+<body>
+    <div style="margin-bottom: 40px;">
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
                 <span>
@@ -44,8 +41,8 @@
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
                                         <a class="dropdown-item" href="{{ route('verPerfil') }}">
@@ -77,10 +74,8 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <p></p>
-    <p></p>
-    <div class="container">
+   
+    <div class="container" style="margin-left: 170px;">
         <div class="row">
          
             <div class="col-md-10 col-md-offset-1">
@@ -120,23 +115,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <form method="GET">
+                                
                                 @foreach ($productos as $producto)
+                                <form method="POST" action="{{route('postEliminarProductoAdmin',$producto->id)}}">
+                                        @csrf
                                     <tr>
                                         <td align="center">
-                                            <a class="btn btn-default" href="{{route('editarProductosAdmin',$producto->id)}}"><em class="fa fa-pencil"></em></a>
-                                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                            <a class="btn btn-default" href="{{route('editarProductosAdmin',$producto->id)}}"><em  style="color:#f4a50b" class="fa fa-pencil"></em></a>
+                                            <button type="submit" style="background-color: #f4a50b; border:#f4a50b" class="btn btn-danger"><em style="color: white;" class="fa fa-trash"></em></button>
                                         </td>
                                         <td>{{$producto->id}}</td>
                                         <td>{{$producto->nombre}}</td>
                                         <td>{{$producto->categoria->nombre}}</td>
                                         <td>{{$producto->catalogos()->first()->user->name}}</td>
                                         <td>${{$producto->precio}} COP</td>
-                                        <td><img class="hoja" src="{{$producto->imagen}}" style="height:40px;width:40px;"></td>
+                                        <td><img class="hoja" src="{{$producto->imagen}}" style="margin-left:15px;width:32px; height: 32px; border-radius: 50%;"></td>
                                         
                                     </tr>
-                                @endforeach  
                                 </form> 
+                                @endforeach  
+                                
                             </tbody>
                         </table>
                         
@@ -147,16 +145,42 @@
         </div>
     </div>
 </div>
+<div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
+        <footer>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3 style="color:rgb(244,165,11);">Services</h3>
+                        <ul>
+                            <li style="color:#ffffff;"><a href="#">Web design</a></li>
+                            <li><a href="#" style="color:#ffffff;">Development</a></li>
+                            <li><a href="#" style="color:#ffffff;">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-md-3 item">
+                        <h3 style="color:rgb(244,165,11);">About</h3>
+                        <ul>
+                            <li style="color:#05386b;"><a href="#" style="color:rgb(255,255,255);">Company</a></li>
+                            <li><a href="#" style="color:#ffffff;">Team</a></li>
+                            <li><a href="#" style="color:#ffffff;">Legacy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 item social"><a href="#" style="color:#05386b;"><i class="icon ion-social-facebook" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-twitter" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-snapchat" style="color:#ffffff;"></i></a>
+                        <a
+                            href="#"><i class="icon ion-social-instagram" style="color:#ffffff;"></i></a>
+                            <p class="copyright" style="color:rgb(161,167,173);">SMART FARMERS</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
+    <script src="{{asset('js/bs-animation-1.js')}}"></script>
+    <script src="{{asset('js/bs-animation.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bs-animation.js')}}"></script>
-   
     
 </body>
 

@@ -94,7 +94,7 @@
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
                             <label style="font-size: 20px !important; margin-left:0px">Producto</label>
-                            <input class="form-control" type="text" name="name">
+                            <input class="form-control" type="text" name="name" value="{{ old('name') }}">
                         </div>   
                         <div class="col-sm-12 col-md-6">
                             <label style="font-size: 20px !important; margin-left:0px">Proveedor</label>
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <label style="font-size: 20px !important; margin-left:0px">Precio producto</label>
-                            <input class="form-control" type="text" name="precio">
+                            <input class="form-control{{ $errors->has('precio') ? ' is-invalid' : '' }}" value="{{ old('precio') }}" type="text" name="precio">
                             @if ($errors->has('precio'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('precio') }}</strong>
