@@ -87,6 +87,32 @@ class ProductoController extends Controller
         return view('administrador.producto.VerProductos',compact('productos'));
     }
 
+    public function returnSearchProductsViewAsNormal(Request $request)
+    {
+        $busqueda = $request->input('search');
+        $producto = Producto::find($busqueda);
+        $categoria = Categoria::where('nombre','like','%'.$busqueda.'%')->get()->first();
+        $proveedor = Catalogo::where('user_name','like','%'.$busqueda.'%')->get()->first();
+        
+        if($categoria != null)
+        {
+            $productos=Producto::where('categoria_id','=',$categoria->id)->get();
+            return view('user.searchProduct',compact('productos'));
+        }
+        elseif($proveedor != null)
+        {
+            $productos = $proveedor->productos;
+            return view('user.searchProduct',compact('productos'));
+        }
+        else
+        {
+            $productos=Producto::where('nombre','like','%'.$busqueda.'%')
+            ->orwhere('precio','like','%'.$busqueda.'%')
+            ->get();
+            return view('user.searchProduct',compact('productos'));
+        }
+    }
+
     public function returnEditProductsAsAdmin($id)
     {
         $producto = Producto::find($id);

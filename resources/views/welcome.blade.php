@@ -51,8 +51,11 @@
                                         {{ __('Ver Perfil') }}
                                     </a>
                                     @can('admin-only', Auth::user())
-                                        <a class="dropdown-item" href="{{ route('logout') }}">
-                                            {{ __('Tablero') }}
+                                        <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
+                                            {{ __('Productos') }}
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            {{ __('Usuarios') }}
                                         </a>
                                     @endcan
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -67,12 +70,25 @@
                         
                     @endif
                 </ul>
-                <form class="form-inline d-inline-flex mr-auto" target="_self" id="busqueda">
+                @if(Auth::user() != null)
+                    @if(Auth::user()->roles()->first()->name != 'Administrator')
+                        <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
+                            @csrf
+                            <div class="form-group float-right">
+                                <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
+                                <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
+                            </div>
+                        </form>
+                    @endif
+                @else
+                    <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
+                        @csrf
                         <div class="form-group float-right">
                             <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
-                            <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;" href="untitled-3.html"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
+                            <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
                         </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </nav>
