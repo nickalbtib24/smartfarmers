@@ -81,6 +81,14 @@ class ProductoController extends Controller
         ->with(compact('categorias'));
     }
 
+    public function returnViewProductAsNormalView($id)
+    {
+        $producto = Producto::find($id);
+        $categoria = $producto->categoria;
+        return view('user.viewProductAsUser')
+        ->with(compact('producto'))
+        ->with(compact('categoria'));
+    }
     public function returnViewProductsAsAdmin()
     {
         $productos = Producto::paginate('15');

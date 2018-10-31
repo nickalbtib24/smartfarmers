@@ -73,8 +73,7 @@ Route::group(['middleware' => 'control'],function(){
   Route::post('/normal/editarperfil','UserController@editUserAsUser')->name('postEditarPerfilComoUsuario');
   Route::get('/normal/editarperfil/contrasena','UserController@returnEditPasswordAsUserView')->name('editarContrasenaComoUsuario');
   Route::post('/normal/editarperfil/contrasena','UserController@editPasswordAsUser')->name('postEditarContrasenaComoUsuario');
-
-  
+  Route::get('/normal/verProducto/{id}','ProductoController@returnViewProductAsNormalView')->name('verProductoUsuario');
   Route::get('/user/activacion/{token}','Auth\RegisterController@activateUser');
 
   

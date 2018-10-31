@@ -118,7 +118,7 @@
                         <div class="col-8">
                             <h4><a href="#">{{$producto->nombre}}&nbsp;</a></h4>
                         </div>
-                        <div class="col-4"><a href="#" class="small-text">Ver Detalle</a></div>
+                        <div class="col-4"><a href="{{route('verProductoUsuario',$producto->id)}}" class="small-text">Ver Detalle</a></div>
                     </div>
                     <div class="row">
                         <div class="col-12">
