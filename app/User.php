@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasMany(Factura::class);
     }
 
+    public function ordenes()
+    {
+        return $this->hasMany(Orden::class);
+    }
+
     public function tieneAlgunRol($roles)
     {
         if(is_array($roles))

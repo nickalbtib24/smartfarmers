@@ -112,11 +112,11 @@
             <div class="col-sm-6 col-md-4 product-item">
                 <div class="product-container">
                     <div class="row">
-                        <div class="col-md-12"><a href="#" class="product-image"><img style="height: 200px;" src="{{$producto->imagen}}"></a></div>
+                        <div class="col-md-12"><a href="{{route('verProductoUsuario',$producto->id)}}" class="product-image"><img style="margin-left:55px;height: 200px;" src="{{$producto->imagen}}"></a></div>
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <h4><a href="#">{{$producto->nombre}}&nbsp;</a></h4>
+                            <h4><a href="{{route('verProductoUsuario',$producto->id)}}">{{$producto->nombre}}&nbsp;</a></h4>
                         </div>
                         <div class="col-4"><a href="{{route('verProductoUsuario',$producto->id)}}" class="small-text">Ver Detalle</a></div>
                     </div>
@@ -125,23 +125,30 @@
                             <p class="product-description" style="font-size: 15px;padding: 0px;">{{$producto->descripcion}}</p>
                             <div class="row">
                                 <div class="col-6">
-                                    <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
-                                        <input name="merchantId"    type="hidden"  value="508029"   >
-                                        <input name="accountId"     type="hidden"  value="512321" >
-                                        <input name="description"   type="hidden"  value="Test PAYU"  >
-                                        <input name="referenceCode" type="hidden"  value="1" >
-                                        <input name="amount"        type="hidden"  value="{{$producto->precio}}"   >
-                                        <input name="tax"           type="hidden"  value="0"  >
-                                        <input name="taxReturnBase" type="hidden"  value="0" >
-                                        <input name="currency"      type="hidden"  value="COP" >
-                                        <input name="signature"     type="hidden"  value="9ee6f22e2a3c09b4871aa2928ac4004f"  >
-                                        <input name="test"          type="hidden"  value="1" >
-                                        <input name="buyerFullName"    type="hidden"  value="{{Auth::user()->name}}" >
-                                        <input name="buyerEmail"    type="hidden"  value="{{Auth::user()->email}}" >
-                                        <input name="responseUrl"    type="hidden"  value="http://smartfarmers.com/normal/buscarProductos" >
-                                        <input name="confirmationUrl"    type="hidden"  value="http://smartfarmers.com/normal/buscarProductos" >
-                                        <input class="btn btn-sm btn-primary btn-create" style="background-color: #f4a50b; border:#f4a50b " name="Submit" type="submit"  value="Comprar" >
-                                    </form>
+                                    @auth
+                                    @php ($reference = str_random(16))
+                                        <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+                                            <input name="merchantId"    type="hidden"  value="508029"   >
+                                            <input name="accountId"     type="hidden"  value="512321" >
+                                            <input name="description"   type="hidden"  value="Compra SMARTFARMERS"  >
+                                            <input name="referenceCode" type="hidden"  value="{{$producto->nombre."-".$producto->id."-".$producto->catalogos()->first()->user_name."-".$reference}}" >
+                                            <input name="amount"        type="hidden"  value="{{$producto->precio}}"   >
+                                            <input name="tax"           type="hidden"  value="0"  >
+                                            <input name="taxReturnBase" type="hidden"  value="0" >
+                                            <input name="currency"      type="hidden"  value="COP" >
+                                            <input name="signature"     type="hidden"  value="{{md5("4Vj8eK4rloUd272L48hsrarnUA"."~"."508029"."~".$producto->nombre."-".$producto->id."-".$producto->catalogos()->first()->user_name."-".$reference."~".$producto->precio."~COP")}}"  >
+                                            <input name="test"          type="hidden"  value="1" >
+                                            <input name="buyerFullName"    type="hidden"  value="{{Auth::user()->name}}" >
+                                            <input name="buyerEmail"    type="hidden"  value="{{Auth::user()->email}}" >
+                                            <input name="responseUrl"    type="hidden"  value="http://smartfarmers.com/user/confirmacionPago" >
+                                            <input name="confirmationUrl"    type="hidden"  value="http://smartfarmers.com/user/confirmacionPago" >
+                                            <input class="btn btn-sm btn-primary btn-create" style="background-color: #f4a50b; border:#f4a50b " name="Submit" type="submit"  value="Comprar" >
+                                        </form>
+                                    @else
+                                    <a class="btn btn-sm btn-primary btn-create" style="background-color: #f4a50b; border:#f4a50b " name="Submit" href="{{route('login')}}" value="Comprar" >Comprar</a>
+                                    
+                                    @endauth
+                                   
                                 </div>
                                 <div class="col-6">
                                     <p class="product-price" style="padding: 0px;">${{$producto->precio}} COP</p>

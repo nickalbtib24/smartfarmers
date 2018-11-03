@@ -3,17 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
-use App\Producto;
-class Factura extends Model
+
+class Orden extends Model
 {
-     /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'proveedor', 'fecha', 'total',
+        'total', 'fecha', 
     ];
 
     /**
@@ -22,16 +21,18 @@ class Factura extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'user_id',
+        'id', 'producto_id','user_id'
     ];
+
+    protected $table = 'ordenes';
+
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class,'producto_id');
+    }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function productos()
-    {
-        return $this->belongsToMany(Producto::class,'facturas_producto');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

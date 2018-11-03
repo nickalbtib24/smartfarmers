@@ -39,4 +39,9 @@ class Producto extends Model
     {
         return $this->belongsToMany(Factura::class,'facturas_producto');
     }
+
+    public function ordenes()
+    {
+        return $this->hasMany(Orden::class);
+    }
 }

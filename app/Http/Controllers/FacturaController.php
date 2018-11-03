@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Factura;
+use App\User;
+use App\Orden;
+use App\Producto;
+use Carbon\Carbon;
+use Auth;
 use Illuminate\Http\Request;
 
 class FacturaController extends Controller
@@ -81,5 +86,45 @@ class FacturaController extends Controller
     public function destroy(Factura $factura)
     {
         //
+    }
+
+    public function getPaymentInformation(Request $request)
+    {
+        $transactionState = $request->input('transactionState');
+        if($transactionState === '4')
+        {
+            $data = $request->input('referenceCode');
+            
+            $information=explode("-",$data);
+
+            $user = Auth::user();
+            
+            $producto = Producto::find($information[1]);
+
+            $factura = Factura::create([
+                'proveedor' => $information[2],
+                'fecha' => Carbon::now()->toDateTimeString(),
+                'total' => $request->input('TX_VALUE'),
+            ]);
+
+            $factura->user()->associate($user);
+            $factura->productos()->attach($producto);
+            
+
+            $proveedor = User::where('name',$information[2])->get()->first();
+            $orden = Orden::create([
+                'total' => $request->input('TX_VALUE'),
+                'fecha' => Carbon::now()->toDateTimeString(),
+            ]);
+
+            $orden->user()->associate($proveedor);
+            $orden->producto()->associate($producto);
+            
+            $factura->save();
+            $user->save();
+            $producto->save();
+            $orden->save();
+            return $proveedor;
+        }
     }
 }

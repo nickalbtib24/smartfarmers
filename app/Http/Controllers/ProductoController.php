@@ -277,6 +277,16 @@ class ProductoController extends Controller
             return view('administrador.producto.VerProductos',compact('productos'));
         }
     }
+
+    public function buyProduct(Request $request)
+    {
+        $api_key='4Vj8eK4rloUd272L48hsrarnUA';
+        
+        $merchantid = $request->input('merchantId');
+        $accountid = $request->input('accountId');
+        
+    }
+
     public function validateEditAdmin(array $data)
     {
         return Validator::make($data, [

@@ -91,18 +91,18 @@
     </nav>
     <main class="container" style="margin-top:30px;">
         <div class="row">
-            <div class="col-lg-7" align="center"><img src="{{$producto->imagen}}"></div>
+            <div class="col-lg-7" align="center"><img style ="border-radius: 100%" src="{{$producto->imagen}}"></div>
             <div class="col-lg-5" align="center">
                 <div class="row" align="center"><label id="nombre-detalle-producto">{{$producto->nombre}}</label></div>
                 <div id="precio-producto-detalle" class="row"><label id="precio-producto-detalle">${{$producto->precio}} COP</label></div>
-                <div class="row" style="margin-top:33px;"><button class="btn btn-primary btn btn-lg btn-primary btn-block" type="button">Comprar</button></div>
+                <div class="row" style="margin-top:100px;"><button style="background-color: #f4a50b; border:#f4a50b " class="btn btn-primary btn btn-lg btn-primary btn-block" type="button">Comprar</button></div>
             </div>
         </div>
         <div class="row" style="margin-top:24px; margin-bottom: 30px;">
             <main class="container">
                 <div class="row"><label id="descripcion-producto-detalle" style="margin-left:0px;">Descripción</label></div>
                 <div class="row">
-                    <div class="col" align="center">
+                    <div class="col" align="left">
                         <p>{{$producto->descripcion}}</p>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFacturasTable extends Migration
+class CreateOrdenesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateFacturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('facturas', function (Blueprint $table) {
+        Schema::create('ordenes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('producto_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('proveedor');
-            $table->timestamp('fecha');
             $table->integer('total')->nullable();
-            $table->timestamps();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->timestamp('fecha');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateFacturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('facturas');
+        Schema::dropIfExists('ordenes');
     }
 }
