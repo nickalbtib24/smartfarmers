@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
@@ -15,9 +15,8 @@
     <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
 
-   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
     <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <header>
@@ -100,110 +99,58 @@
                         </div>
                     </div>
                 </nav>
-    </header>
-        <form enctype="multipart/form-data" method="POST" action="{{route('postCrearUsuario')}}">
-            @csrf
-            <div class="form-row profile-row" style="margin-left: 50px;" >
-                <div class="col-md-4 relative" style="margin-left:-50px; margin-right:15px; margin-top:40px;">
-                    <div class="avatar">
-                        <div class="avatar-bg center"></div>
-                    </div>
-                    <input type="file" class="form-control" name="avatar-file">
-                </div>
-                <div class="col-md-8">
-                    <h1>Agregar Usuario</h1>
+    </header>       
+            <div class="form-row profile-row" style="margin-left: 60px;">
+                <div class="col-md-11">
+                    <h1>Factura N-{{$factura->id}}</h1>
+                    <label>Referencia: {{$data}}</label>
                     <hr>
-                    @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Nombre</label>
-                            <input class="form-control" type="text" name="name">                    
+                            <label style="font-size: 20px !important; margin-left:0px">Cliente: </label>
+                            <label>{{$factura->user->name}}</label>
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Genero</label>
-                            <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="genero" value="{{ old('role') }}" required autofocus>
-                                <option value="">{{'Seleccione el Genero'}}</option>
-                                <option value="Femenino">{{'Femenino'}}</option>
-                                <option value="Masculino">{{'Masculino'}}</option>        
-                            </select>
+                        <div class="col-sm-12 col-md-6">   
+                            <label style="font-size: 20px !important; margin-left:0px">Proveedor: </label>
+                            <label>{{$factura->proveedor}}</label>   
                         </div>
                     </div>
-                    
-                    <div class="form-row">
+                    <div class="form-row">  
                         <div class="col-sm-12 col-md-6">
-                                    <label style="font-size: 20px !important; margin-left:0px">Dirección</label>
-                                    <input class="form-control" type="text" name="direccion">
-                                       
-                                
-                        </div>
+                            <label style="font-size: 20px !important; margin-left:0px">Producto: </label>
+                            <label>{{$factura->productos()->first()->nombre}}</label>   
+                        </div> 
                         <div class="col-sm-12 col-md-6">
-                            
-                                <label style="font-size: 20px !important; margin-left:0px">Teléfono</label>
-                                <input class="form-control" type="text" name="telefono">
-                                    
-                            
-                        </div>
+                            <label style="font-size: 20px !important; margin-left:0px">Precio producto: </label>
+                            <label>$ {{$factura->productos()->first()->precio}} COP</label>   
+                        </div>                     
                     </div>
-                    <div class="form-row">
+                    <div class="form-row">  
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Email </label>
-                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" type="email" required name="email">
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif    
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Rol</label>
-                            <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required autofocus>
-                                <option value="">{{'Seleccione el rol'}}</option>
-                                    @foreach ($roles as $id => $role)
-                                        <option value="{{$id}}">{{$role}}</option>
-                                    @endforeach
-                            </select>
-                              
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Contraseña</label>
-                            <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" value="{{ old('password') }}" type="password" name="password" autocomplete="off" required>
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif   
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Confirmar contraseña</label>
-                            <input class="form-control" type="password" name="password_confirmation" autocomplete="off" required="">
-                        </div>
+                            <label style="font-size: 20px !important; margin-left:0px">Total Compra: </label>
+                            <label>$ {{$factura->total}} COP</label>   
+                        </div> 
                     </div>
                     <hr>
                     <div class="form-row">
                         <div class="col-md-12 content-right">
-                            <button class="btn btn-primary form-btn" type="submit">SAVE </button>
-                            <button class="btn btn-danger form-btn" type="reset" value="submit">CANCEL </button>
+                            <a class="btn btn-danger form-btn" href="{{route('homeNormal')}}">ACEPTAR</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
-    <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
-    <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
-    <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bs-animation.js')}}"></script>
+        
+    
+    
+        <script src="{{asset('js/jquery.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
+        <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
+        <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
+        <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
+        <script src="{{asset('js/jquery.min.js')}}"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('js/bs-animation.js')}}"></script>
 </body>
 
 </html>

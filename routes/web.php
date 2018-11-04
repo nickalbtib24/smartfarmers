@@ -76,5 +76,7 @@ Route::group(['middleware' => 'control'],function(){
   Route::get('/normal/verProducto/{id}','ProductoController@returnViewProductAsNormalView')->name('verProductoUsuario');
   Route::get('/user/activacion/{token}','Auth\RegisterController@activateUser');
   Route::get('/user/confirmacionPago','FacturaController@getPaymentInformation');
+  Route::get('/user/facturas','FacturaController@returnViewFacturasView')->name('verFacturasAsUser');
+  Route::get('/user/factura/{id}','FacturaController@returnViewFactura')->name('verFacturaAsUser');
 
   

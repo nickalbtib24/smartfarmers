@@ -12,7 +12,7 @@ class Orden extends Model
      * @var array
      */
     protected $fillable = [
-        'total', 'fecha', 
+        'total', 'fecha','cliente', 
     ];
 
     /**

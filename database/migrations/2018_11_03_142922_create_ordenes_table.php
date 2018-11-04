@@ -17,6 +17,7 @@ class CreateOrdenesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('producto_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
+            $table->string('cliente');
             $table->integer('total')->nullable();
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

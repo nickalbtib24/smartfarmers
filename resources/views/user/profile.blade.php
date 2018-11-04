@@ -34,32 +34,41 @@
                                 @auth
                                 
                                 <li class="nav-item dropdown" style="width: 400px;">
-                                        <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            <img src="{{Auth::user()->avatar}}" style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
-                                            {{ Auth::user()->name }} <span class="caret"></span>
+                                    <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <img src="{{Auth::user()->avatar}}" style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
+                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
+                                        <a class="dropdown-item" href="{{ route('verPerfil') }}">
+                                            {{ __('Ver Perfil') }}
+                                        </a>
+                                        @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
+                                            <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
+                                                {{ __('Compras') }}
                                             </a>
                                             <a class="dropdown-item" href="{{ route('verPerfil') }}">
-                                                {{ __('Ver Perfil') }}
+                                                {{ __('Ventas') }}
+                                            </a> 
+                                        @endif
+                                        
+                                        @can('admin-only', Auth::user())
+                                            <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
+                                                {{ __('Productos') }}
                                             </a>
-                                            @can('admin-only', Auth::user())
-                                                <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
-                                                    {{ __('Productos') }}
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    {{ __('Usuarios') }}
-                                                </a>
-                                            @endcan
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
+                                            <a class="dropdown-item" href="#">
+                                                {{ __('Usuarios') }}
+                                            </a>
+                                        @endcan
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
                                 @else
                                     <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}" style="color:#fefefe;font-size:16px;">Registrarse</a></li>
                                     <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('login') }}" style="color:#fafafb;font-size:16px;">Ingresar al sistema</a></li>
@@ -67,6 +76,7 @@
                                 
                             @endif
                         </ul>
+                        
                         @if(Auth::user() != null)
                             @if(Auth::user()->roles()->first()->name != 'Administrator')
                                 <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">

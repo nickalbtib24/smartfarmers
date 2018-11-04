@@ -50,6 +50,15 @@
                                 <a class="dropdown-item" href="{{ route('verPerfil') }}">
                                     {{ __('Ver Perfil') }}
                                 </a>
+                                @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
+                                    <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
+                                        {{ __('Compras') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('verPerfil') }}">
+                                        {{ __('Ventas') }}
+                                    </a> 
+                                @endif
+                                
                                 @can('admin-only', Auth::user())
                                     <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
                                         {{ __('Productos') }}

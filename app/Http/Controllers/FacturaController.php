@@ -88,6 +88,22 @@ class FacturaController extends Controller
         //
     }
 
+    public function returnViewFacturasView()
+    {
+        $facturas = Factura::where('user_id',Auth::user()->id)->get();
+        return view('user.viewFacturas')
+        ->with(compact('facturas'));
+    }
+
+    public function returnViewFactura($id)
+    {
+        $factura = Factura::find($id);
+        $data = $factura->id;
+        return view('user.viewRecentFactura')
+            ->with(compact('factura'))
+            ->with(compact('data'));
+    }
+
     public function getPaymentInformation(Request $request)
     {
         $transactionState = $request->input('transactionState');
@@ -115,6 +131,7 @@ class FacturaController extends Controller
             $orden = Orden::create([
                 'total' => $request->input('TX_VALUE'),
                 'fecha' => Carbon::now()->toDateTimeString(),
+                'cliente' => $user->name,
             ]);
 
             $orden->user()->associate($proveedor);
@@ -124,7 +141,9 @@ class FacturaController extends Controller
             $user->save();
             $producto->save();
             $orden->save();
-            return $proveedor;
+            return view('user.viewRecentFactura')
+            ->with(compact('factura'))
+            ->with(compact('data'));
         }
     }
 }
