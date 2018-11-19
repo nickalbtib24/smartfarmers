@@ -11,20 +11,16 @@
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Clean.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Dark.css')}}">
-    <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Login-Form-Clean.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+
+   
 </head>
 
 <body>
-    <div style="margin-bottom: 40px;">
-           
-   </head>
-
-<body style="width:100%;height:100%;">
+    <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <header>
     <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
@@ -33,7 +29,7 @@
             <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                     @if (Route::has('login'))
                         
                         @auth
@@ -76,6 +72,12 @@
                                     <a class="dropdown-item" href="#">
                                         {{ __('Usuarios') }}
                                     </a>
+
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                    </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -113,117 +115,109 @@
         </div>
     </nav>
     </header>
-   
-    <div class="container" style="margin-left: 170px;">
-        <div class="row">
-         
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default panel-table">
-                    <div class="Usuarios">
-                        <div class="row">
-                            <div class="col col-xs-6"></div>
-                            <br></br>
-                            <br></br>
 
 
-                            <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
-                               
-       
-                            </div>
+
+        <form  method="POST" enctype="multipart/form-data" action="{{route('postEditarUserAdmin', $user->id)}}">
+        
+            @csrf
+            
+            <div class="form-row profile-row" style="margin-left: 50px;" >
+                <div class="col-md-4 relative" style="margin-left:-50px; margin-right:15px; margin-top:40px;">
+                    <div class="avatar">
+                        <div class="center"><img src="{{asset($user->avatar)}}" style="width:200px; height: 200px; top:20px; left: 20px; border-radius: 50%;"></div>
+                    </div>
+                    <input type="file" class="form-control" name="avatar-file">
+                </div>
+
+
+                <div class="col-md-8">
+                    <h1>Editar usuario</h1>
+                    <hr>
+                    @if(session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                        
+                                <label style="font-size: 20px !important; margin-left:0px">Nombre</label>
+
+                                
+                                <input class="form-control" type="text" name="name"   value="{{$user->name}}">                  
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                                    <label style="font-size: 20px !important; margin-left:0px">Genero</label>
+                                    <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="genero" value="{{ old('role') }}" required autofocus>
+                                        <option value="">{{'Seleccione el Genero'}}</option>
+                                        <option value="Femenino">{{'Femenino'}}</option>
+                                        <option value="Masculino">{{'Masculino'}}</option>        
+                                    </select>
                         </div>
                     </div>
-
-
                     
-                    <form method="POST" action="{{ route('buscarFactura') }}">
-                        <div class="input-group">
-                            @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por Nº de factura o nombre de proveedor">
-                            <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
-                        </div>
-                    </form>
-                    <p></p>
-                    <p></p>
-                    <div class="panel-body">
-                        
-                        <table class="table table-striped table-bordered table-list">
-                            <thead>
-                                <tr>
-                                    <th>Factura N-</th>
-                                    <th>Cliente</th>
-                                    <th>Proveedor</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                                    <label style="font-size: 20px !important; margin-left:0px">Dirección</label>
+                                    <input class="form-control" type="text" name="direccion" value="{{$user->direccion}}">
+                                       
                                 
-                                @foreach ($facturas as $factura)
-                                    <tr>
-                                        <td><a href="{{route('verFacturaAsUser',$factura->id)}}">{{$factura->id}}</a></td>
-                                        <td>{{$factura->user->name}}</td>
-                                        <td>{{$factura->proveedor}}</td>
-                                        <td>{{$factura->fecha}}</td>
-                                        <td>${{$factura->total}} COP</td>
-                                    </tr>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
                             
-                                @endforeach  
-                                
-                            </tbody>
-                        </table>
-                        
+                                <label style="font-size: 20px !important; margin-left:0px">Teléfono</label>
+                                <input class="form-control" type="text" name="telefono" value="{{$user->telefono}}">
+                                    
+                            
+                        </div>
                     </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-
-
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
-        <footer>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-sm-4 col-md-3 item">
-                        <h3 style="color:rgb(244,165,11);">Services</h3>
-                        <ul>
-                            <li style="color:#ffffff;"><a href="#">Web design</a></li>
-                            <li><a href="#" style="color:#ffffff;">Development</a></li>
-                            <li><a href="#" style="color:#ffffff;">Hosting</a></li>
-                        </ul>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Email </label>
+                            <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{$user->email}}" type="email" required name="email">
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif    
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                           
+                        <label style="font-size: 20px !important; margin-left:0px">Estado</label>
+                        <select style="height: 40px; margin-top:0px;" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="activo" value="{{ old('role') }}" required autofocus>
+    
+                                        <option value="">{{'Seleccione el estado'}}</option>
+                                        <option value="1">{{'Activo'}}</option>
+                                        <option value="0">{{'Inactivo'}}</option>        
+                                    </select>
+                                </span>
+                     
+                              
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-md-3 item">
-                        <h3 style="color:rgb(244,165,11);">About</h3>
-                        <ul>
-                            <li style="color:#05386b;"><a href="#" style="color:rgb(255,255,255);">Company</a></li>
-                            <li><a href="#" style="color:#ffffff;">Team</a></li>
-                            <li><a href="#" style="color:#ffffff;">Legacy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 item social"><a href="#" style="color:#05386b;"><i class="icon ion-social-facebook" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-twitter" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-snapchat" style="color:#ffffff;"></i></a>
-                        <a
-                            href="#"><i class="icon ion-social-instagram" style="color:#ffffff;"></i></a>
-                            <p class="copyright" style="color:rgb(161,167,173);">SMART FARMERS</p>
+                   
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-12 content-right">
+                            <button class="btn btn-primary form-btn" type="submit">EDITAR </button>
+                            <a class="btn btn-danger form-btn" href="{{route('listaUserAdmin')}}">CANCELAR </a>
+                     
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </form>
     </div>
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/bs-animation-1.js')}}"></script>
-    <script src="{{asset('js/bs-animation.js')}}"></script>
+    <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/bs-animation.js')}}"></script>
 </body>
 
 </html>

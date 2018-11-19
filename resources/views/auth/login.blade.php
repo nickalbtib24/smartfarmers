@@ -7,9 +7,9 @@
     <title>SMARTFAMRMERS</title>
     <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type = "text/css" href="/fonts/font-awesome.min.css">
-    <link rel="stylesheet" type = "text/css" href="/fonts/ionicons.min.css">
-    <link rel="stylesheet" type = "text/css" href="/fonts/typicons.min.css">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Clean.css')}}">
@@ -61,28 +61,28 @@
         <a href="{{route('password.request')}}" class="forgot" style="color:rgb(4,4,4);">No sé mi clave</a></form>
     </div>
     <div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
-        <footer>
+    <footer>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-sm-4 col-md-3 item">
-                        <h3 style="color:rgb(244,165,11);">Servicios</h3>
+                        <h3 style="color:rgb(244,165,11);">Services</h3>
                         <ul>
-                            <li style="color:#ffffff;"><a href="#">Diseño Web</a></li>
-                            <li><a href="#" style="color:#ffffff;">Venta de productos</a></li>
-                            <li><a href="#" style="color:#ffffff;">Agricultura</a></li>
+                            <li style="color:#ffffff;"><a href="#">Web design</a></li>
+                            <li><a href="#" style="color:#ffffff;">Development</a></li>
+                            <li><a href="#" style="color:#ffffff;">Hosting</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-4 col-md-3 item">
-                        <h3 style="color:rgb(244,165,11);">Sobre nosotros</h3>
+                        <h3 style="color:rgb(244,165,11);">About</h3>
                         <ul>
-                            <li style="color:#05386b;"><a href="#" style="color:rgb(255,255,255);">Compañia</a></li>
-                            <li><a href="#" style="color:#ffffff;">Equipo</a></li>
-                            <li><a href="#" style="color:#ffffff;">Legado</a></li>
+                            <li style="color:#05386b;"><a href="#" style="color:rgb(255,255,255);">Company</a></li>
+                            <li><a href="#" style="color:#ffffff;">Team</a></li>
+                            <li><a href="#" style="color:#ffffff;">Legacy</a></li>
                         </ul>
                     </div>
-                    <div class="col-lg-3 item social"><a href="#" style="color:#05386b;"><i class="icon ion-social-facebook" style="color:#f4a50b;"></i></a><a href="#"><i class="icon ion-social-twitter" style="color:#f4a50b;"></i></a><a href="#"><i class="icon ion-social-snapchat" style="color:#f4a50b;"></i></a>
+                    <div class="col-lg-3 item social"><a href="#" style="color:#05386b;"><i class="icon ion-social-facebook" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-twitter" style="color:#ffffff;"></i></a><a href="#"><i class="icon ion-social-snapchat" style="color:#ffffff;"></i></a>
                         <a
-                            href="#"><i class="icon ion-social-instagram" style="color:#f4a50b;"></i></a>
+                            href="#"><i class="icon ion-social-instagram" style="color:#ffffff;"></i></a>
                             <p class="copyright" style="color:rgb(161,167,173);">SMART FARMERS</p>
                     </div>
                 </div>

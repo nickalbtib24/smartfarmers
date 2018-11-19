@@ -1,8 +1,12 @@
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
+  
+     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
     <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
@@ -17,10 +21,13 @@
     <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Login-Form-Clean.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+   
 </head>
 
-<body>
-    <div style="margin-bottom: 40px;">
+<body><div>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+   
+    <header>
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
                 <span>
@@ -114,84 +121,103 @@
                 </div>
             </div>
         </nav>
-                     
-   
+    </header>
+    
+    <p></p>
+    <p></p>
+
     <div class="container" style="margin-left: 170px;">
         <div class="row">
-            
             <div class="col-md-10 col-md-offset-1">
+
                 <div class="panel panel-default panel-table">
                     <div class="Usuarios">
                         <div class="row">
                             <div class="col col-xs-6"></div>
-                            <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
-                                <a href="{{route('crearProductoAdmin')}}" style="background-color: #f4a50b; border:#f4a50b " class="btn btn-sm btn-primary btn-create">Nuevo Producto</a>
-                               
+                            <div class="col col-xs-6 text-right">
+         
+                            <a class="btn btn-sm btn-primary btn-create" style="background-color: #f4a50b; border:#f4a50b " href="{{route('crearUsuarioAdmin')}}">Nuevo Usuario</a></div>
                         </div>
                     </div>
-                    @if(!empty($success))
-                        <div class="alert alert-success"> {{ $success }}</div>
-                    @endif
-                    <form method="POST" action="{{ route('buscarProductosAdmin') }}">
+                    <p></p>
+                    <p></p>
+                   
+
+                    <form method="POST" action="{{ route('buscarUsuarioAdmin') }}">
                         <div class="input-group">
                             @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por nombre del producto, categoría, proveedor y precio">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por Nombre o Email de Usuario">
                             <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
                         </div>
                     </form>
+
                     <p></p>
                     <p></p>
+
                     <div class="panel-body">
-                        
+
+                    @if($users)
+
                         <table class="table table-striped table-bordered table-list">
                             <thead>
                                 <tr>
                                     <th><em class="fa fa-cog"></em></th>
-                                    <th class="hidden-xs">ID</th>
-                                    <th>Producto</th>
-                                    <th>Categoria</th>
-                                    <th>Proveedor</th>
-                                    <th>Precio</th>
-                                    <th>Imagen</th>
+                                   
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>E-Mail</th>
+                                    <th>Teléfono</th>
+                                    <th>Dirección</th>
+                                    <th>Genero</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                
-                            @foreach ($productos as $producto)
+                            
+                            @foreach($users as $row)
 
-                            <form method="POST" action="{{route('postEliminarProductoAsAdmin',$producto->id)}}">
-                                    @csrf
-                                <tr>
-                                    <td align="center">
-                                        <a class="btn btn-default" href="{{route('editarProductosAdmin',$producto->id)}}"><em  style="color:#f4a50b" class="fa fa-pencil"></em></a>
-                                        <button type="submit" style="background-color: #f4a50b; border:#f4a50b" class="btn btn-danger"><em style="color: white;" class="fa fa-trash"></em></button>
-                                    </td>
-                                    <td>{{$producto->id}}</td>
-                                    <td>{{$producto->nombre}}</td>
-                                    <td>{{$producto->categoria->nombre}}</td>
-                                    <td>{{$producto->catalogos->first()->user->name}}</td>
-                                    <td>${{$producto->precio}} COP</td>
-                                    <td><img class="hoja" src="{{$producto->imagen}}" style="margin-left:15px;width:32px; height: 32px; border-radius: 50%;"></td>
+                            <form method="POST" action="{{route('EliminarUser', $row->id)}}" >
+                            @csrf
+                            <tr>
+                                <td align="center">
+
+                                    <a href= "{{route('editarUserAdmin', $row->id)}}"  class="btn btn-default">
+                                    <em style="color:#f4a50b"  class="fa fa-pencil"></em></a>
                                     
-                                </tr>
-                            </form> 
-                            @endforeach   
+
+                                    <button type="submit" class="btn btn-danger" style="background-color: #f4a50b; border:#f4a50b" >
+                                    <em style="color: white;" class="fa fa-trash"></em></a>
+                                </td>
                                 
-                            </tbody>
+
+                                    
+                          
+                                    <td>{{ $row->id }}</td>
+                                    <td>{{ $row->name }}</td>
+                                    <td>{{ $row->email }}</td>
+                                    <td>{{ $row->telefono }}</td>
+                                    <td>{{ $row->direccion }}</td>
+                                    <td>{{ $row->genero }}</td>
+                                    <td>{{ $row->esta_activo }}</td>
+                                
+                                </tr>
+                               
+                            
+
+                            </form>
+                            @endforeach
                         </table>
-                        
+                        @endif
                     </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
                     
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+     <br></br>
+     <br></br>
+     <br></br>
 <div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
         <footer>
             <div class="container">
@@ -228,7 +254,6 @@
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    
 </body>
 
 </html>

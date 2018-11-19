@@ -5,7 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
+        <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
@@ -17,15 +21,17 @@
     <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Login-Form-Clean.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+
+
+    
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
-    <div style="margin-bottom: 40px;">
-           
-   </head>
+    <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-<body style="width:100%;height:100%;">
-    <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
+ <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
                 <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
@@ -76,6 +82,11 @@
                                     <a class="dropdown-item" href="#">
                                         {{ __('Usuarios') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -112,82 +123,92 @@
             </div>
         </div>
     </nav>
-    </header>
-   
-    <div class="container" style="margin-left: 170px;">
-        <div class="row">
-         
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default panel-table">
-                    <div class="Usuarios">
-                        <div class="row">
-                            <div class="col col-xs-6"></div>
-                            <br></br>
-                            <br></br>
-
-
-                            <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
-                               
-       
-                            </div>
-                        </div>
+        <form  enctype="multipart/form-data" method="POST" action="{{route('postCrearProductoUser')}}">
+            @csrf
+            <div class="form-row profile-row" style="margin-left: 60px;">
+                <div class="col-md-4 relative" style="margin-left:-50px; margin-right:15px; margin-top:40px;">
+                    <div class="avatar">
+                        <div class="avatar-bg center"></div>
                     </div>
-
-
-                    
-                    <form method="POST" action="{{ route('buscarFactura') }}">
-                        <div class="input-group">
-                            @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por Nº de factura o nombre de proveedor">
-                            <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
-                        </div>
-                    </form>
-                    <p></p>
-                    <p></p>
-                    <div class="panel-body">
-                        
-                        <table class="table table-striped table-bordered table-list">
-                            <thead>
-                                <tr>
-                                    <th>Factura N-</th>
-                                    <th>Cliente</th>
-                                    <th>Proveedor</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                                @foreach ($facturas as $factura)
-                                    <tr>
-                                        <td><a href="{{route('verFacturaAsUser',$factura->id)}}">{{$factura->id}}</a></td>
-                                        <td>{{$factura->user->name}}</td>
-                                        <td>{{$factura->proveedor}}</td>
-                                        <td>{{$factura->fecha}}</td>
-                                        <td>${{$factura->total}} COP</td>
-                                    </tr>
-                            
-                                @endforeach  
-                                
-                            </tbody>
-                        </table>
-                        
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-
-
-                    
+                    <input type="file" class="form-control" name="avatar-file">
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
+                <div class="col-md-8">
+                    <h1>Agregar Producto</h1>
+                    <hr>
+                    @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Producto</label>
+                            <input class="form-control" type="text" name="name" value="{{ old('name') }}">
+                        </div>  
+
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Proveedor</label>
+                            <label style="font-size: 20px !important; margin-left:0px">{{Auth::user()->name}}</label>
+                            <input type="hidden" name="proveedor" value="{{Auth::user()->id}}"></input>
+                            </select>
+                        </div>
+                        
+
+                    </div>
+                    <div class="form-row">
+    
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Tipo de producto</label>
+                            <select style="height: 47,5px; margin-top:0px;" name="categoria" type="text" class="form-control{{ $errors->has('categoria') ? ' is-invalid' : '' }}" value="{{ old('categoria') }}" required autofocus>
+                                <option value="">{{'Seleccione la categoria'}}</option>
+                                @foreach ($categorias as $id => $categoria)
+                                    <option value="{{$id}}">{{$categoria}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Precio producto</label>
+                            <input class="form-control{{ $errors->has('precio') ? ' is-invalid' : '' }}" value="{{ old('precio') }}" type="text" name="precio">
+                            @if ($errors->has('precio'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('precio') }}</strong>
+                                </span>
+                            @endif   
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-12">
+                            <label style="font-size: 20px !important; margin-left:0px">Descripción del producto</label>
+                            <textarea type="text Area" class="form-control" id="mio" name="descripcion">
+                            </textarea>
+                            @if ($errors->has('descripcion'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('descripcion') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <hr>
+
+
+                                      
+                                      <div class="form-row">
+                        <div class="col-md-12 content-right">
+                            <button class="btn btn-primary form-btn" type="submit">GUARDAR</button>
+                            <a class="btn btn-danger form-btn" href="{{route('listaproductosuser')}}">CANCELAR</a>
+                        </div>
+<br></br>
+<br></br>
+<br></br>
+                    
+                      
+                    </div>
+                </div>
+            </div>         
+        </form>
+    
+    
+        <div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
         <footer>
             <div class="container">
                 <div class="row justify-content-center">
@@ -223,7 +244,6 @@
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    
 </body>
 
 </html>

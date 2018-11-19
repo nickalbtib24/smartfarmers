@@ -26,7 +26,7 @@
     <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
-                <img class="hoja" src="/img/foto.png" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
+                <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
             </span>
             <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -38,33 +38,47 @@
                         
                         <li class="nav-item dropdown" style="width: 400px;">
                             <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img src="{{Auth::user()->avatar}}" style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
+                                <img src="{{asset(Auth::user()->avatar)}}" 
+                        
+                                style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+                                
                                 <a class="dropdown-item" href="{{ route('verPerfil') }}">
-                                    {{ __('Ver Perfil') }}
+                                    {{ __('Mi perfil') }}
                                 </a>
                                 @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
                                     <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
-                                        {{ __('Compras') }}
+                                        {{ __('Registro de Compras') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('verPerfil') }}">
-                                        {{ __('Ventas') }}
+                                    <a class="dropdown-item" href="{{ route('verFacturasAsUser1') }}">
+                                        {{ __('Registro de ventas') }}
                                     </a> 
+
+                                     <a class="dropdown-item" href="{{ route('listaproductosuser') }}">
+                                        {{ __('Mis productos') }}
+                                    </a> 
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                </a>
                                 @endif
                                 
                                 @can('admin-only', Auth::user())
                                     <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
                                         {{ __('Productos') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('listaUserAdmin') }}">
                                         {{ __('Usuarios') }}
+                                    </a>
+
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
                                     </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -104,8 +118,8 @@
     </nav>
     <div class="carousel slide carousel-fade" data-ride="carousel" id="carousel-1">
         <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active"><img class="w-100 d-block" src="/img/landscape-176602_1280.jpg" alt="Slide Image" style="width:100%;height:auto;"></div>
-            <div class="carousel-item"><img class="w-100 d-block" src="/img/nature-213364_1280.jpg" alt="Slide Image"></div>
+            <div class="carousel-item active"><img class="w-100 d-block" src="{{asset('img/landscape-176602_1280.jpg')}}" alt="Slide Image" style="width:100%;height:auto;"></div>
+            <div class="carousel-item"><img class="w-100 d-block" src="{{asset('img/nature-213364_1280.jpg')}}" alt="Slide Image"></div>
         </div>
         <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
         <ol

@@ -35,44 +35,87 @@
 </head>
 <body style="width:100%;height:100%;">
     <div id="app">
-            <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:rgba(0,0,0,0.84);">
-                    <div class="container"><span><img src="/img/foto.png" style="height:40px;width:40px;margin-left:-40px;margin-right:20px;"></span><a class="navbar-brand" href="#" id="logo">SMART FARMERS</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse"
-                            id="navcol-1">
-                            <ul class="nav navbar-nav">
-                                @if (Route::has('login'))
-                                        @auth
-                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                {{ Auth::user()->name }} <span class="caret"></span>
-                                            </a>
-            
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
-                                                </a>
-            
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        @else
-                                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}" style="color:#fefefe;font-size:16px;">Registrarse</a></li>
-                                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('login') }}" style="color:#fafafb;font-size:16px;">Ingresar al sistema</a></li>
-                                        @endauth
-                                    </div>
+    <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
+        <div class="container">
+            <span>
+                <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
+            </span>
+            <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    @if (Route::has('login'))
+                        
+                        @auth
+                        
+                        <li class="nav-item dropdown" style="width: 400px;">
+                            <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img src="{{asset(Auth::user()->avatar)}}" 
+                        
+                                style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('verPerfil') }}">
+                                    {{ __('Ver Perfil') }}
+                                </a>
+                                @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
+                                    <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
+                                        {{ __('Compras') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('verPerfil') }}">
+                                        {{ __('Ventas') }}
+                                    </a> 
                                 @endif
-                    
-                               
-                            </ul>
-                            <form class="form-inline d-inline-flex mr-auto" target="_self" id="busqueda">
-                                <div class="form-group float-right"><input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;"><button class="btn btn-secondary" type="submit"
-                                        style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;" href="untitled-3.html"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button></div>
-                            </form>
+                                
+                                @can('admin-only', Auth::user())
+                                    <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
+                                        {{ __('Productos') }}
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        {{ __('Usuarios') }}
+                                    </a>
+                                @endcan
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        @else
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}" style="color:#fefefe;font-size:16px;">Registrarse</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('login') }}" style="color:#fafafb;font-size:16px;">Ingresar al sistema</a></li>
+                        @endauth
+                        
+                    @endif
+                </ul>
+                
+                @if(Auth::user() != null)
+                    @if(Auth::user()->roles()->first()->name != 'Administrator')
+                        <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
+                            @csrf
+                            <div class="form-group float-right">
+                                <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
+                                <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
+                            </div>
+                        </form>
+                    @endif
+                @else
+                    <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
+                        @csrf
+                        <div class="form-group float-right">
+                            <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
+                            <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
                         </div>
-                    </div>
-                </nav>
+                    </form>
+                @endif
+            </div>
+        </div>
+    </nav>
 
         <main class="py-4">
             @yield('content')

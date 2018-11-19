@@ -127,7 +127,7 @@ class FacturaController extends Controller
             $factura->productos()->attach($producto);
             
 
-            $proveedor = User::where('name',$information[2])->get()->first();
+            $proveedor = User::where('name',trim($information[2]))->get()->first();
             $orden = Orden::create([
                 'total' => $request->input('TX_VALUE'),
                 'fecha' => Carbon::now()->toDateTimeString(),
@@ -144,6 +144,18 @@ class FacturaController extends Controller
             return view('user.viewRecentFactura')
             ->with(compact('factura'))
             ->with(compact('data'));
+             
         }
     }
+    
+   
+    public function buscarFactura (Request $request)
+    {
+        $busqueda = $request->input('search');
+        $facturas = Factura::where('proveedor','like','%'.$busqueda.'%')
+        ->orWhere('id','like','%'.$busqueda.'%')->get();
+        return view('user.viewFacturas',compact('facturas'));
+    }
+
 }
+

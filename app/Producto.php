@@ -44,4 +44,7 @@ class Producto extends Model
     {
         return $this->hasMany(Orden::class);
     }
+
+   
+
 }

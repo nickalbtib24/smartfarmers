@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
 use App\Catalogo;
 use App\Factura;
+use App\Producto;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -50,6 +51,8 @@ class User extends Authenticatable
         return $this->hasMany(Orden::class);
     }
 
+    
+
     public function tieneAlgunRol($roles)
     {
         if(is_array($roles))
@@ -80,4 +83,6 @@ class User extends Authenticatable
             return false;
         }
     }
+
+
 }

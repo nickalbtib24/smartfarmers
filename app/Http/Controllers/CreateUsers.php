@@ -103,6 +103,7 @@ class CreateUsers extends Controller
             
         ]);
         $user->roles()->attach($data['role']);
+        $user->esta_activo = 1;
         $user->save();
         $catalogo = new Catalogo;
         $catalogo->user_name = $user->name;

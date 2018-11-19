@@ -21,10 +21,6 @@
 
 <body>
     <div style="margin-bottom: 40px;">
-           
-   </head>
-
-<body style="width:100%;height:100%;">
     <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
@@ -112,7 +108,6 @@
             </div>
         </div>
     </nav>
-    </header>
    
     <div class="container" style="margin-left: 170px;">
         <div class="row">
@@ -122,23 +117,15 @@
                     <div class="Usuarios">
                         <div class="row">
                             <div class="col col-xs-6"></div>
-                            <br></br>
-                            <br></br>
-
-
                             <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
-                               
-       
+                            <br></br>
                             </div>
                         </div>
                     </div>
-
-
-                    
-                    <form method="POST" action="{{ route('buscarFactura') }}">
+                    <form method="POST" action="{{ route('buscarOrden') }}">
                         <div class="input-group">
                             @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por Nº de factura o nombre de proveedor">
+                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por Nº Factura o Nombre del cliente">
                             <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
                         </div>
                     </form>
@@ -150,21 +137,25 @@
                             <thead>
                                 <tr>
                                     <th>Factura N-</th>
-                                    <th>Cliente</th>
-                                    <th>Proveedor</th>
-                                    <th>Fecha</th>
+                                    <th>Id Producto</th>
+                                    <th>Id Proveedor </th>
+                                    <th>Cliente </th>
                                     <th>Total</th>
+                                    <th>Fecha</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
                                 
                                 @foreach ($facturas as $factura)
                                     <tr>
-                                        <td><a href="{{route('verFacturaAsUser',$factura->id)}}">{{$factura->id}}</a></td>
-                                        <td>{{$factura->user->name}}</td>
-                                        <td>{{$factura->proveedor}}</td>
-                                        <td>{{$factura->fecha}}</td>
+                                        <td><a href="{{route('verFacturaAsUser1',$factura->id)}}">{{$factura->id}}</a></td>
+                                        <td>{{$factura->producto_id}}</td>
+                                        <td>{{$factura->user_id}}</td>
+                                        <td>{{$factura->cliente}}</td>
                                         <td>${{$factura->total}} COP</td>
+                                        <td>${{$factura->fecha}} COP</td>
+                                       
                                     </tr>
                             
                                 @endforeach  
@@ -178,10 +169,6 @@
                     <br></br>
                     <br></br>
                     <br></br>
-
-
-
-                    
                 </div>
             </div>
         </div>

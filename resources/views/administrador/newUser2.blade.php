@@ -7,28 +7,30 @@
     <title>Smart_Farmers</title>
     <link rel="stylesheet" href="{{asset('css/styles.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
+    <link rel="stylesheet" type = "text/css" href="/fonts/font-awesome.min.css">
+    <link rel="stylesheet" type = "text/css" href="/fonts/ionicons.min.css">
+    <link rel="stylesheet" type = "text/css" href="/fonts/typicons.min.css">
     <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
     <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+   
 </head>
+
 <body>
-    <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <header>
-            <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
-                    <div class="container">
-                        <span>
-                            <img class="hoja" src="/img/foto.png" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
-                        </span>
-                        <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
-                        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav">
+        <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <header>
+                <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
+                        <div class="container">
+                            <span>
+                                <img class="hoja" src="/img/foto.png" style="height:40px;width:40px;margin-left:-60px;margin-right:20px;">
+                            </span>
+                            <a class="navbar-brand" href="#" id="logo">SMART FARMERS</a>
+                            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                            <div class="collapse navbar-collapse" id="navcol-1">
+                            <ul class="nav navbar-nav">
                     @if (Route::has('login'))
                         
                         @auth
@@ -90,33 +92,19 @@
                         
                     @endif
                 </ul>
-                            
-                            @if(Auth::user() != null)
-                                @if(Auth::user()->roles()->first()->name != 'Administrator')
-                                    <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
-                                        @csrf
+                                <form class="form-inline d-inline-flex mr-auto" target="_self" id="busqueda">
                                         <div class="form-group float-right">
                                             <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
-                                            <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
+                                            <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;" href="untitled-3.html"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
                                         </div>
-                                    </form>
-                                @endif
-                            @else
-                                <form method="POST" class="form-inline d-inline-flex mr-auto" id="busqueda" action="{{route('buscarProductosNormal')}}">
-                                    @csrf
-                                    <div class="form-group float-right">
-                                        <input class="form-control search-field" type="search" name="search" placeholder="Busque su producto" id="search-field" style="width:291px;border-radius:50px;background-color:#f5dfdf;">
-                                        <button class="btn btn-secondary" type="submit" style="background-color:#030303;border-radius:50px;position:relative;margin-left:-39px;"><i class="fa fa-search" data-bs-hover-animate="bounce" style="color:#feffff;"></i></button>
-                                    </div>
                                 </form>
-                            @endif
+                            </div>
                         </div>
-                    </div>
-                </nav>
-    </header>
-        <form  enctype="multipart/form-data" method="POST" action="{{route('postCrearProductoAdmin')}}">
+                    </nav>
+        </header>
+        <form enctype="multipart/form-data" method="POST" action="{{route('postCrearUsuario')}}">
             @csrf
-            <div class="form-row profile-row" style="margin-left: 60px;">
+            <div class="form-row profile-row" >
                 <div class="col-md-4 relative" style="margin-left:-50px; margin-right:15px; margin-top:40px;">
                     <div class="avatar">
                         <div class="avatar-bg center"></div>
@@ -124,73 +112,76 @@
                     <input type="file" class="form-control" name="avatar-file">
                 </div>
                 <div class="col-md-8">
-                    <h1>Agregar Producto</h1>
+                    <h1>Agregar Usuario</h1>
                     <hr>
-                    @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
                     <div class="form-row">
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Producto</label>
-                            <input class="form-control" type="text" name="name" value="{{ old('name') }}">
-                        </div>   
+                                <label style="font-size: 20px !important; margin-left:0px">Nombre</label>
+                                <input class="form-control" type="text" name="name">                    
+                        </div>
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Proveedor</label>
-                            <select style="height: 37,5px; margin-top:0px;" name="proveedor" type="text" class="form-control{{ $errors->has('proveedor') ? ' is-invalid' : '' }}" value="{{ old('proveedor') }}" required autofocus>
-                                <option value="">{{'Seleccione el proveedor'}}</option>
-                                @foreach ($proveedores as $proveedor)
-                                    <option value="{{$proveedor->id}}">{{$proveedor->name}}</option>
-                                @endforeach
-                            </select>
+                                    <label style="font-size: 20px !important; margin-left:0px">Genero</label>
+                                    <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required autofocus>
+                                        <option value="">{{'Seleccione el Genero'}}</option>
+                                        <option value="Femenino">{{'Femenino'}}</option>
+                                        <option value="Masculino">{{'Masculino'}}</option>        
+                                    </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                                    <label style="font-size: 20px !important; margin-left:0px">Dirección</label>
+                                    <input class="form-control" type="text" name="direccion">
+                                       
+                                
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            
+                                <label style="font-size: 20px !important; margin-left:0px">Teléfono</label>
+                                <input class="form-control" type="text" name="telefono">
+                                    
+                            
                         </div>
                     </div>
                     <div class="form-row">
-    
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Tipo de producto</label>
-                            <select style="height: 47,5px; margin-top:0px;" name="categoria" type="text" class="form-control{{ $errors->has('categoria') ? ' is-invalid' : '' }}" value="{{ old('categoria') }}" required autofocus>
-                                <option value="">{{'Seleccione la categoria'}}</option>
-                                @foreach ($categorias as $id => $categoria)
-                                    <option value="{{$id}}">{{$categoria}}</option>
-                                @endforeach
-                            </select>
+                            <label style="font-size: 20px !important; margin-left:0px">Email </label>
+                            <input class="form-control" type="email" autocomplete="off" required name="email">
+                               
                         </div>
                         <div class="col-sm-12 col-md-6">
-                            <label style="font-size: 20px !important; margin-left:0px">Precio producto</label>
-                            <input class="form-control{{ $errors->has('precio') ? ' is-invalid' : '' }}" value="{{ old('precio') }}" type="text" name="precio">
-                            @if ($errors->has('precio'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('precio') }}</strong>
-                                </span>
-                            @endif   
+                            <label style="font-size: 20px !important; margin-left:0px">Rol</label>
+                            <select style="height: 40px; margin-top:0px;" placeholder="*Rol" id="registro-texto" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required autofocus>
+                                <option value="">{{'Seleccione el rol'}}</option>
+                                    @foreach ($roles as $id => $role)
+                                        <option value="{{$id}}">{{$role}}</option>
+                                    @endforeach
+                            </select>
+                              
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-sm-12 col-md-12">
-                            <label style="font-size: 20px !important; margin-left:0px">Descripción del producto</label>
-                            <textarea type="text Area" class="form-control" id="mio" name="descripcion">
-                            </textarea>
-                            @if ($errors->has('descripcion'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('descripcion') }}</strong>
-                                </span>
-                            @endif
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Contraseña</label>
+                            <input class="form-control" type="password" name="password" autocomplete="off" required>
+                               
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Confirmar contraseña</label><input class="form-control" type="password" name="confirmpass" autocomplete="off" required="">
                         </div>
                     </div>
                     <hr>
                     <div class="form-row">
                         <div class="col-md-12 content-right">
-                            <button class="btn btn-primary form-btn" type="submit">GUARDAR</button>
-                            <a class="btn btn-danger form-btn" href="{{route('verProductosAdmin')}}">CANCELAR</a>
+                            <button class="btn btn-primary form-btn" type="submit">SAVE </button>
+                            <button class="btn btn-danger form-btn" type="reset" value="submit">CANCEL </button>
                         </div>
                     </div>
                 </div>
-            </div>         
+            </div>
         </form>
-    
-    
+    </div>
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/Contact-Form-v2-Modal--Full-with-Google-Map.js')}}"></script>

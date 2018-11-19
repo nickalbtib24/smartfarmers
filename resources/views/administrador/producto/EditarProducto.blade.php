@@ -28,54 +28,68 @@
                         <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
                         <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navcol-1">
-                            <ul class="nav navbar-nav">
-                                @if (Route::has('login'))
-                                    
-                                    @auth
-                                    
-                                    <li class="nav-item dropdown" style="width: 400px;">
-                                        <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            <img src="{{Auth::user()->avatar}}" style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
-                                            {{ Auth::user()->name }} <span class="caret"></span>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-                                            <a class="dropdown-item" href="{{ route('verPerfil') }}">
-                                                {{ __('Ver Perfil') }}
-                                            </a>
-                                            @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
-                                                <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
-                                                    {{ __('Compras') }}
-                                                </a>
-                                                <a class="dropdown-item" href="{{ route('verPerfil') }}">
-                                                    {{ __('Ventas') }}
-                                                </a> 
-                                            @endif
-                                            
-                                            @can('admin-only', Auth::user())
-                                                <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
-                                                    {{ __('Productos') }}
-                                                </a>
-                                                <a class="dropdown-item" href="#">
-                                                    {{ __('Usuarios') }}
-                                                </a>
-                                            @endcan
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                    @else
-                                        <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}" style="color:#fefefe;font-size:16px;">Registrarse</a></li>
-                                        <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('login') }}" style="color:#fafafb;font-size:16px;">Ingresar al sistema</a></li>
-                                    @endauth
-                                    
+                        <ul class="nav navbar-nav">
+                    @if (Route::has('login'))
+                        
+                        @auth
+                        
+                        <li class="nav-item dropdown" style="width: 400px;">
+                            <a id="navbarDropdown" style="color:white; margin-right:120px;" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img src="{{asset(Auth::user()->avatar)}}" 
+                        
+                                style="width:32px; height: 32px; top:10px; left: 10px; border-radius: 50%;"/>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                
+                                <a class="dropdown-item" href="{{ route('verPerfil') }}">
+                                    {{ __('Mi perfil') }}
+                                </a>
+                                @if(Auth::user()->roles()->first()->name === 'CompradorVendedor')
+                                    <a class="dropdown-item" href="{{ route('verFacturasAsUser') }}">
+                                        {{ __('Registro de Compras') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('verFacturasAsUser1') }}">
+                                        {{ __('Registro de ventas') }}
+                                    </a> 
+
+                                     <a class="dropdown-item" href="{{ route('listaproductosuser') }}">
+                                        {{ __('Mis productos') }}
+                                    </a> 
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                </a>
                                 @endif
-                            </ul>
+                                
+                                @can('admin-only', Auth::user())
+                                    <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
+                                        {{ __('Productos') }}
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        {{ __('Usuarios') }}
+                                    </a>
+
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
+                                    </a>
+                                @endcan
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                        @else
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}" style="color:#fefefe;font-size:16px;">Registrarse</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('login') }}" style="color:#fafafb;font-size:16px;">Ingresar al sistema</a></li>
+                        @endauth
+                        
+                    @endif
+                </ul>
                             
                             @if(Auth::user() != null)
                                 @if(Auth::user()->roles()->first()->name != 'Administrator')

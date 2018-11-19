@@ -12,7 +12,7 @@ class Orden extends Model
      * @var array
      */
     protected $fillable = [
-        'total', 'fecha','cliente', 
+        'total', 'fecha','cliente', 'id'
     ];
 
     /**
@@ -21,7 +21,7 @@ class Orden extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'producto_id','user_id'
+        'producto_id','user_id'
     ];
 
     protected $table = 'ordenes';

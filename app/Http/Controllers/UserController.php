@@ -12,6 +12,9 @@ use App\Role;
 use Image;
 class UserController extends Controller
 {
+
+    private $path = 'user';
+
     public function editUserAsUser(Request $request)
     {
         $validator = $this->validator($request->all());
@@ -91,6 +94,14 @@ class UserController extends Controller
         return view('user.editUser');
     }
 
+
+
+    public function editar1()
+    {
+        return view('administrador.editarUser');
+    }
+
+
     public function returnEditPasswordAsUserView()
     {
         return view('user.editUserPassword');
@@ -100,4 +111,83 @@ class UserController extends Controller
     {
         return view('user.profile');
     }
+
+    public function returnProfileView1()
+    {
+        return view('administrador.Rud_usuario');
+    }
+
+
+    public function index()
+    {
+    $users = User::orderBy('id', 'DESC')->paginate(5);
+    return view('administrador.Rud_usuario',compact('users'));
+   
+    }
+
+   
+
+
+ public function eliminar($id)
+ {
+
+    
+        $dato = User::destroy($id);
+        $users = User::all();
+        return view('administrador.Rud_usuario',compact('users'));
+ 
+
+
+    
+ }
+
+    public function edit ($id)
+        {
+            $user = User::find($id);
+            return view('administrador.editarUser')->with('user', $user); 
+       
+        }
+
+
+        public function update(Request $request, $id)   
+         {  
+            $user = User::find($id);           
+            $user -> name = $request->name;
+            $user -> email = $request->email;
+            $user -> esta_activo = $request->activo;
+          
+            $user -> telefono = $request->telefono;
+            $user -> direccion = $request->direccion;
+            $user -> genero = $request->genero;
+
+            if($request->hasFile('avatar-file'))
+            {
+                $userAvatar = $user->avatar;
+                
+                    $avatar = $request->file('avatar-file');
+                    $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                    Image::make($avatar)->resize(300,300)->save(public_path('/img/avatars/'.$filename));
+                    $user->avatar = '/img/avatars/'.$filename;
+                    
+            }
+            $user -> save();
+            $users = User::all();
+            return view('administrador.Rud_usuario',compact('users'));
+            
+        }
+
+        public function buscarUsuario(Request $request)
+{
+    $busqueda = $request->input('search');
+    $users = User::where('name','like','%'.$busqueda.'%')
+    ->orWhere('email','like','%'.$busqueda.'%')->get();
+    return view('administrador.Rud_usuario',compact('users'));
 }
+
+     
+        
+
+}
+ 
+
+

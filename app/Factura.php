@@ -13,7 +13,7 @@ class Factura extends Model
      * @var array
      */
     protected $fillable = [
-        'proveedor', 'fecha', 'total',
+        'proveedor', 'fecha', 'total','id'
     ];
 
     /**
@@ -22,7 +22,7 @@ class Factura extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'user_id',
+        'user_id',
     ];
 
     public function user()
