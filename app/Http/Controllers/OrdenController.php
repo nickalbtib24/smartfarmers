@@ -15,39 +15,34 @@ class OrdenController extends Controller
 
    
 
-    public function returnViewFacturasView()
+    public function returnViewOrdenesView()
     {
-    $facturas = Auth::user()->ordenes()->get();
-    return view('user.viewOrden',compact('facturas'));
+        $ordenes = Auth::user()->ordenes()->get();
+        return view('user.viewOrdenes',compact('ordenes'));
     }
 
-    public function returnViewFactura($id)
+    public function returnViewOrden($id)
     {
-        $factura = Factura::find($id);
-        $data = $factura->id;
-        return view('user.viewRecentFactura')
-            ->with(compact('factura'))
+        $orden = Orden::find($id);
+        $data = $orden->id;
+        return view('user.viewRecentOrder')
+            ->with(compact('orden'))
             ->with(compact('data'));
     }
-
-
-    public function searchProductsUser(Request $request)
+    public function buscarOrden(Request $request)
     {
-        $ordenes = Orden::where('orden','like','%'.$busqueda.'orden%')->get()->first();
-
-        return ;
-        
-       
-   
-
-}
-
-public function buscarOrden(Request $request)
-{
-    $busqueda = $request->input('search');
-    $facturas = Orden::where('cliente','like','%'.$busqueda.'%')
-    ->orWhere('id','like','%'.$busqueda.'%')->get();
-    return view('user.viewOrden',compact('facturas'));
-}
+        $busqueda = $request->input('search');
+        $user = Auth::user();
+        $ordenesTodas = Orden::where('user_id',$user->id)->get();
+        $ordenes = [];
+        foreach($ordenesTodas as $orden)
+        {
+            if($orden->id == $busqueda || $orden->user->name == $busqueda || $orden->producto->nombre == $busqueda)
+            {
+                $ordenes[] = $orden;
+            }
+        }
+        return view('user.viewOrdenes',compact('ordenes'));
+    }
 
 }

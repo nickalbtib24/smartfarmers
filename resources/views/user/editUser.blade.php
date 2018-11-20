@@ -33,8 +33,7 @@
             <a class="navbar-brand" href="#" id="logo" >SMART FARMERS</a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
-               
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     @if (Route::has('login'))
                         
                         @auth
@@ -74,7 +73,7 @@
                                     <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
                                         {{ __('Productos') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('listaUserAdmin') }}">
                                         {{ __('Usuarios') }}
                                     </a>
 
@@ -96,8 +95,6 @@
                         
                     @endif
                 </ul>
-
-               
                 
                 @if(Auth::user() != null)
                     @if(Auth::user()->roles()->first()->name != 'Administrator')

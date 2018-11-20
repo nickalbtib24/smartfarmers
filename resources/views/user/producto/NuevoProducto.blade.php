@@ -30,8 +30,7 @@
 </head>
 <body>
     <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
- <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
+    <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
                 <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
@@ -79,14 +78,15 @@
                                     <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
                                         {{ __('Productos') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('listaUserAdmin') }}">
                                         {{ __('Usuarios') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                     {{ __('Cerrar Sesión') }}
-                                </a>
+                                    </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf

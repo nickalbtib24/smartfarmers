@@ -148,13 +148,39 @@ class FacturaController extends Controller
         }
     }
     
-   
+    public function buscarFacturaAsUser(Request $request)
+    {
+        $user = Auth::user();
+        $busqueda = $request->input('search');
+        if($busqueda == '')
+        {
+            $facturas = $user->facturas()->get();
+            return view('user.viewFacturas',compact('facturas'));
+        }else
+        {
+            $facturas = Factura::where('user_id',$user->id)
+            ->and('proveedor','like','%'.$busqueda.'%')
+            ->orWhere('id','like','%'.$busqueda.'%')->get();
+            return view('user.viewFacturas',compact('facturas'));       
+        }
+        $user->facturas();
+    }
     public function buscarFactura (Request $request)
     {
+        $user = Auth::user();
         $busqueda = $request->input('search');
-        $facturas = Factura::where('proveedor','like','%'.$busqueda.'%')
-        ->orWhere('id','like','%'.$busqueda.'%')->get();
-        return view('user.viewFacturas',compact('facturas'));
+        if($busqueda == '')
+        {
+            $facturas = $user->facturas()->get();
+            return view('user.viewFacturas',compact('facturas'));
+        }else
+        {
+            $facturas = Factura::where('user_id',$user->id)
+            ->orWhere('proveedor','like','%'.$busqueda.'%')
+            ->orWhere('id','like','%'.$busqueda.'%')->get();
+            return view('user.viewFacturas',compact('facturas'));       
+        }
+        $user->facturas();
     }
 
 }

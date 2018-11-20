@@ -5,22 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart_Farmers</title>
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/styles.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/font-awesome.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/ionicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('fonts/typicons.min.css')}}">
     <link rel="stylesheet" type = "text/css" href="https://fonts.googleapis.com/css?family=Poppins:400,700">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Article-List.css')}}">
+    <link rel="stylesheet" href="{{asset('css/dh-agency-bootstrap-theme.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Profile-Edit-Form-1.css')}}">
+    <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
+
+
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Clean.css')}}">
     <link rel="stylesheet" type = "text/css" href="{{asset('css/Footer-Dark.css')}}">
-    <link rel="stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Login-Form-Clean.css')}}">
-    <link rel="stylesheet" type = "text/css" href="{{asset('css/Navigation-with-Search.css')}}">
-</head>
+   
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
 <body>
-    <div style="margin-bottom: 40px;">
+    <div class="footer-2"></div><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <header>
         <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
             <div class="container">
                 <span>
@@ -113,83 +117,57 @@
                     @endif
                 </div>
             </div>
-        </nav>                 
-   
-    <div class="container" style="margin-left: 170px;">
-        <div class="row">
-         
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default panel-table">
-                    <div class="Usuarios">
-                        <div class="row">
-                            <div class="col col-xs-6"></div>
-                            <div class="col col-xs-6 text-right" style="margin-top: 30px; margin-bottom: 30px;">
-                                <a href="{{route('nuevo_producto_user')}}" style="background-color: #f4a50b; border:#f4a50b " class="btn btn-sm btn-primary btn-create">Nuevo Producto</a>
-                               
+        </nav>
+    </header>  
+    <br></br>
+      <br></br>     
+            <div class="form-row profile-row" style="margin-left: 60px;">
+                <div class="col-md-11">
+                    <h1>Orden N-{{$orden->id}}</h1>
+                    <label>Referencia: {{$data}}</label>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Cliente: </label>
+                            <label>{{$orden->cliente}}</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">   
+                            <label style="font-size: 20px !important; margin-left:0px">Proveedor: </label>
+                            <label>{{$orden->user->name}}</label>   
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('buscarProductosUser') }}">
-                        <div class="input-group">
-                            @csrf
-                            <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control" name="search" id="search" type="text" placeholder="Busque por nombre del producto, categoría, proveedor y precio">
-                            <div class="input-group-append"><button class="btn btn-light" type="submit" >Buscar</button></div>                      
-                        </div>
-                    </form>
-                    <p></p>
-                    <p></p>
-                    <div class="panel-body">
-                        
-                        <table class="table table-striped table-bordered table-list">
-                            <thead>
-                                <tr>
-                                    <th><em class="fa fa-cog"></em></th>
-                                    <th class="hidden-xs">ID</th>
-                                    <th>Producto</th>
-                                    <th>Categoria</th>
-                                    <th>Proveedor</th>
-                                    <th>Precio</th>
-                                    <th>Imagen</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            @foreach ($productos as $producto)
-
-<form method="POST" action="{{route('postEliminarProductoAsUser',$producto->id)}}">
-        @csrf
-    <tr>
-        <td align="center">
-            <a class="btn btn-default" href="{{route('editarProductosUser',$producto->id)}}"><em  style="color:#f4a50b" class="fa fa-pencil"></em></a>
-            <button type="submit" style="background-color: #f4a50b; border:#f4a50b" class="btn btn-danger"><em style="color: white;" class="fa fa-trash"></em></button>
-        </td>
-        <td>{{$producto->id}}</td>
-        <td>{{$producto->nombre}}</td>
-        <td>{{$producto->categoria->nombre}}</td>
-        <td>{{$producto->catalogos()->first()->user->name}}</td>
-        
-        <td>${{$producto->precio}} COP</td>
-        <td><img class="hoja" src="{{$producto->imagen}}" style="margin-left:15px;width:32px; height: 32px; border-radius: 50%;"></td>
-        
-    </tr>
-</form> 
-@endforeach   
-                                
-                            </tbody>
-                        </table>
-                        
+                    <div class="form-row">  
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Producto: </label>
+                            <label>{{$orden->producto->nombre}}</label>   
+                        </div> 
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Precio producto: </label>
+                            <label>$ {{$orden->producto->precio}} COP</label>   
+                        </div>                     
                     </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    
+                    <div class="form-row">  
+                        <div class="col-sm-12 col-md-6">
+                            <label style="font-size: 20px !important; margin-left:0px">Total Compra: </label>
+                            <label>$ {{$orden->total}} COP</label>   
+                        </div> 
+                    </div>
+                    <hr>
+                    <div class="form-row">
+                        <div class="col-md-12 content-right">
+                            <a class="btn btn-danger form-btn" href="{{route('verFacturasAsUser1')}}">ACEPTAR</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
+       
+
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+            <div class="footer-clean" style="background-color:rgba(0,0,0,0.84);">
         <footer>
             <div class="container">
                 <div class="row justify-content-center">
@@ -225,7 +203,6 @@
     <script src="{{asset('js/dh-agency-bootstrap-theme-1.js')}}"></script>
     <script src="{{asset('js/dh-agency-bootstrap-theme.js')}}"></script>
     <script src="{{asset('js/Profile-Edit-Form.js')}}"></script>
-    
 </body>
 
 </html>

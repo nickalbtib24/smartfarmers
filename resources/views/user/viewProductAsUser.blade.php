@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
+    <nav class="navbar navbar-light navbar-expand-md d-flex navigation-clean-search navbar navbar-inverse" style="background-color:#4b4c4d;">
         <div class="container">
             <span>
                 <img class="hoja" src="{{asset('img/foto.png')}}" style="height:40px;width:40px; margin-left:-50px;margin-right:8px;">
@@ -68,8 +68,14 @@
                                     <a class="dropdown-item" href="{{ route('verProductosAdmin') }}">
                                         {{ __('Productos') }}
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('listaUserAdmin') }}">
                                         {{ __('Usuarios') }}
+                                    </a>
+
+                                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
                                     </a>
                                 @endcan
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -118,7 +124,31 @@
             <div class="col-lg-5" align="center">
                 <div class="row" align="center"><label id="nombre-detalle-producto">{{$producto->nombre}}</label></div>
                 <div id="precio-producto-detalle" class="row"><label id="precio-producto-detalle">${{$producto->precio}} COP</label></div>
-                <div class="row" style="margin-top:100px;"><button style="background-color: #f4a50b; border:#f4a50b " class="btn btn-primary btn btn-lg btn-primary btn-block" type="button">Comprar</button></div>
+                @auth
+                    @php ($reference = str_random(16))
+                        <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
+                            <input name="merchantId"    type="hidden"  value="508029"   >
+                            <input name="accountId"     type="hidden"  value="512321" >
+                            <input name="description"   type="hidden"  value="Compra SMARTFARMERS"  >
+                            <input name="referenceCode" type="hidden"  value="{{$producto->nombre."-".$producto->id."-".$producto->catalogos()->first()->user->name."-".$reference}}">
+                            <input name="amount"        type="hidden"  value="{{$producto->precio}}"   >
+                            <input name="tax"           type="hidden"  value="0"  >
+                            <input name="taxReturnBase" type="hidden"  value="0" >
+                            <input name="currency"      type="hidden"  value="COP" >
+                            <input name="signature"     type="hidden"  value="{{md5("4Vj8eK4rloUd272L48hsrarnUA"."~"."508029"."~".$producto->nombre."-".$producto->id."-".$producto->catalogos()->first()->user->name."-".$reference."~".$producto->precio."~COP")}}"  >
+                            <input name="test"          type="hidden"  value="1" >
+                            <input name="buyerFullName"    type="hidden"  value="{{Auth::user()->name}}" >
+                            <input name="buyerEmail"    type="hidden"  value="{{Auth::user()->email}}" >
+                            <input name="responseUrl"    type="hidden"  value="{{route('confirmacionPago')}}" >
+                            <input name="confirmationUrl"    type="hidden"  value="{{route('confirmacionPago')}}" >
+                            <div class="row" style="margin-top:100px;"><input style="background-color: #f4a50b; border:#f4a50b " class="btn btn-primary btn btn-lg btn-primary btn-block" type="submit" value="Comprar"></div>
+                        </form>
+                    @else
+                    <a class="btn btn-sm btn-primary btn-create" style="background-color: #f4a50b; border:#f4a50b " name="Submit" href="{{route('login')}}" value="Comprar" >Comprar</a>
+                    
+                    @endauth
+                
+                
             </div>
         </div>
         <div class="row" style="margin-top:24px; margin-bottom: 30px;">
